@@ -1,0 +1,270 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.game-box .bg-white {
+	background: #fff;
+	padding: 40px 0;
+}
+.game-box {
+	width: auto;
+	height: 100%;
+	background: url(/wp-content/uploads/2022/07/main-bg.png) no-repeat center / cover;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+}
+.game-box .input-box .input-field {
+	display: inline-block;
+	background: #CCCCCC;
+	border: 5px solid #A48B49;
+	padding: 30px 40px;
+	border-radius: 10px;
+	margin: 40px 0;
+}
+.game-box .input-box input {
+	width: 30px;
+	border: none;
+	background: transparent;
+	border-bottom: 3px solid #fff;
+	text-align: center;
+	padding-left: 0;
+	padding-right: 0;
+}
+.game-box .input-box input:focus {
+    outline: none;
+}
+.game-box .logo img {
+	width: 150px;
+}
+.game-box .submit button {
+	background: none;
+	border: none;
+	color: #FFA92A;
+	font-weight: bold;
+	cursor: pointer;
+	font-size: 24px;
+}
+.game-box .title {
+	color: #8B8B8B;
+	font-weight: bold;
+	margin-top: 10px;
+}
+.game-box .title span {
+	color: #FFA92A;
+}
+.game-box .title-2 {
+	font-size: 30px;
+	color: #FFA92A;
+}
+.game-box .title-4 {
+	font-size: 18px;
+	color: #FFA92A;
+	padding: 0 12px;
+}
+.game-box .title-3 {
+	font-size: 12px;
+}
+.game-box .cow {
+	margin: 30px 0;
+}
+.game-box .cow.three-column {
+	column-count: 3;
+}
+.game-box .cow img {
+	width: 80px;
+	transition: 0.5s;
+}
+.game-box .cow img {
+    animation: cow-move 1.5s infinite linear alternate;
+}
+.game-box .cow .randomButton:first-child img {
+    animation-duration: .8s;
+}
+.game-box .cow .randomButton:nth-child(2) img {
+    animation-duration: 1s;
+}
+.game-box .cow .randomButton:nth-child(4) img {
+    animation-duration: 1.3s;
+}
+.game-box .cow .randomButton:nth-child(5) img {
+    animation-duration: .7s;
+}
+@keyframes cow-move {
+    0% {
+        transform: rotate(15deg);
+    }
+    100% {
+        transform: rotate(-15deg);
+    }
+}
+.game-box .btn.margin {
+	margin-bottom: 15px;
+}
+.game-box .btn a {
+	color: #FFA92A;
+	text-decoration: none;
+	font-weight: bold;
+}
+.game-box .point-box {
+	margin: 20px 0;
+}
+.game-box-2 .point-box {
+	margin: 40px 0;
+}
+.game-box .point-box .point-circle {
+	width: 100px;
+	height: 100px;
+	margin: 0 auto;
+	border-radius: 100px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 2px solid #FFA92A;
+	position: relative;
+}
+.game-box .point-box .point {
+	font-size: 50px;
+	font-weight: bold;
+	color: #FFA92A;
+}
+.game-box .point-box .point-text {
+	color: #CCCCCC;
+    font-weight: bold;
+    position: absolute;
+    left: 100%;
+    font-size: 22px;
+    bottom: 25px;
+    margin-left: 10px;
+}
+.game-box .btn-2 button {
+	background: url(/wp-content/uploads/2022/08/button.png) no-repeat center / contain;
+	display: block;
+	padding: 20px;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	color: #fff;
+	font-size: 0.75rem;
+}
+.game-box .btn-2 button:focus {
+    outline: none;
+}
+
+/* The device with borders */
+.smartphone {
+  position: relative;
+  width: 350px;
+  height: 580px;
+  margin: 17px auto;
+  border: 16px black solid;
+  border-top-width: 60px;
+  border-bottom-width: 60px;
+  border-radius: 36px;
+}
+
+/* The horizontal line on the top of the device */
+.smartphone:before {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 5px;
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #333;
+  border-radius: 10px;
+}
+
+/* The circle on the bottom of the device */
+.smartphone:after {
+  content: '';
+  display: block;
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  left: 50%;
+  bottom: -65px;
+ transform: translate(-50%, -50%);
+  background: #333;
+  border-radius: 50%;
+}
+.bg-shadow {
+    width: 850px;
+    margin: 20px auto;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+    padding: 30px;
+    border-radius: 10px;
+}
+.game-box.game-box-2 {
+    text-align: left;
+}
+#page_links,
+#page_a_link,
+.game-box-2 input,
+.game-box-2 select,
+.game-box-2 button{
+    margin-bottom: 8px;
+    margin-top: 10px;
+    border-radius: 100px !important;
+    outline: none;
+    border-color: #e1e1e1 !important;
+    padding: 7px 15px !important;
+    font-size: 14px;
+}
+.game-box-2 input[type= "text"],
+.game-box-2 input[type= "date"],
+.game-box-2 select {
+	width: 100%;
+}
+.game-box-2 select {
+	outline: 1px solid #e1e1e1;
+	border-right: 10px;
+	border-right: 10px solid transparent;
+}
+.game-box .text-center {
+    text-align: center;
+}
+.game-box .otp-box {
+    max-width: 400px;
+    margin: 0 auto;
+}
+.game-box-2 input[type='submit'],
+.game-box-2 button {
+    color: #FFA92A;
+}
+.game-box-2 input[type='submit']:hover,
+.game-box-2 button:hover {
+    background: #FFA92A;
+    color: #fff;
+}
+.game-box-2 table td, .game-box-2 table th {
+	padding: 10px;
+	line-height: 1.5;
+	vertical-align: top;
+	border: none;
+	border-right: 1px solid #e6e6e6;
+	text-align: center;
+}
+.game-box-2 table td:last-child, .game-box-2 table th:last-child {
+	border-right: none;
+}
+.game-box .cow button {
+	font-size: 0;
+}
+@media(max-width: 767px) {
+    .smartphone {
+    	position: static;
+    	width: 100%;
+    	height: 100vh;
+    	margin: auto;
+    	border: none;
+    }
+    .smartphone::after {
+    	content: inherit;
+    }
+}
