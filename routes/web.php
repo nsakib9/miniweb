@@ -4,9 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\UsersController;
-use App\Http\Controllers\AgentController;
-use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\GameController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,22 +29,24 @@ Auth::routes(['verify' => true]);
 Route::post('register/submit', [UsersController::class, 'store'])->name('register.agent');
 Route::post('/login', [UsersController::class, 'login'])->name('login.agent');
 
-Route::group(['middleware' => ['verified', 'auth']],  function(){
+Route::group(['middleware' => ['verified', 'auth']],  function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
-    Route::any('/game', function () { return view('frontend.game'); });
-    Route::any('/game-content', function () { return view('frontend.game-content'); });
-    Route::any('/game-admin', function () { return view('frontend.game-admin'); });
+    Route::any('/game', function () {
+        return view('frontend.game');
+    });
+    Route::any('/game-content', function (Request $request) {
+        return view('frontend.game-content');
+    });
+
+
 
     // Admin Routes
-    Route::group(['prefix' => 'admin', 'middleware' => 'role:admin'],  function(){
+    Route::group(['prefix' => 'admin', 'middleware' => 'role:admin'],  function () {
         // Role Management Routes
         Route::resource('roles', RolesController::class, ['name' => 'roles']);
         Route::resource('users', UsersController::class, ['name' => 'users']);
 
-        // Agent Routes
-        // Route::get('/agent/list', [AgentController::class, 'index'])->name('agents');
-        // Route::get('/agent/pending', [AgentController::class, 'pendingAgent'])->name('pendingAgents');
-        // Route::get('/agent/approve/{id}', [AgentController::class, 'approveAgent'])->name('agentApprove');
+        Route::get('/game-otp', [GameController::class, 'showOTP'])->name('show.otp');
+        Route::post('/save-otp', [GameController::class, 'storeOTP'])->name('store.otp');
     });
-
 });

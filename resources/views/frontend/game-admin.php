@@ -114,14 +114,14 @@
         $d = new Database();
         // Create Table Automatically (game_info)
         $sql_to_create_table = "CREATE TABLE IF NOT EXISTS game_info (
-    `id` int(11) NOT NULL AUTO_INCREMENT ,
-`user_id` int(11) NOT NULL ,
-`score_points` int(11) DEFAULT NULL,
-`tracker` int(1) NOT NULL DEFAULT 0 COMMENT '0 = False(Not Played), 1= True(Played)\r\n',
-`probablity` int(11) DEFAULT NULL,
-`start_time` datetime DEFAULT current_timestamp(),
-PRIMARY KEY (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+            `id` int(11) NOT NULL AUTO_INCREMENT ,
+            `user_id` int(11) NOT NULL ,
+            `score_points` int(11) DEFAULT NULL,
+            `tracker` int(1) NOT NULL DEFAULT 0 COMMENT '0 = False(Not Played), 1= True(Played)\r\n',
+            `probablity` int(11) DEFAULT NULL,
+            `start_time` datetime DEFAULT current_timestamp(),
+            PRIMARY KEY (id)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
         $creare_table = $d->query($sql_to_create_table);
         // Create Table Automatically (otp)
 

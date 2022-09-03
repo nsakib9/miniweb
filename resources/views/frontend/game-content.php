@@ -561,9 +561,10 @@ $d->query($sql_create_table_allPageSetting);
                         "probablity_4" => $d->VD($_POST['probablity_4']),
                     );
                     if ($d->insert("point_and_probablity", $data1)) {
-                        global $wp;
-                        $url = home_url(add_query_arg(array(), $wp->request));
-                        echo "<script>self.location='$url';</script>";
+                        $insertQuery = 'INSERT INTO ';
+                        // global $wp;
+                        // $url = home_url(add_query_arg(array(), $wp->request));
+                        // echo "<script>self.location='$url';</script>";
                     } else {
                         echo "failed";
                     }
@@ -621,7 +622,7 @@ $d->query($sql_create_table_allPageSetting);
                 @endphp
 
                 <form class="form-inline" action="" enctype="multipart/form-data" method="POST">
-
+                    @csrf
                     <table class="table table-sm ">
                         <thead>
                             <tr>
