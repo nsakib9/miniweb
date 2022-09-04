@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LAMP ADMIN</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{asset('assets/frontend/css/game.css')}}">
     <style>
         table {
             font-family: arial, sans-serif;
@@ -57,8 +57,8 @@
                 <img src="$logo" alt="">
             </div>
             <br>
-            <a href="/game-content" target="">Setting</a> &nbsp; &nbsp;
-            <a href="/game" target="_blank">Play Game</a>
+            <a href="{{route('show.settings')}}" target="">Settings</a> &nbsp; &nbsp;
+            <a href="" target="_blank">Play Game</a>
 
             <h3 class="title title-2 text-center">管理パネル</h3>
             <div class="point-box">

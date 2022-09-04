@@ -29,16 +29,11 @@ Auth::routes(['verify' => true]);
 Route::post('register/submit', [UsersController::class, 'store'])->name('register.agent');
 Route::post('/login', [UsersController::class, 'login'])->name('login.agent');
 
+//Game
+Route::any('/game', function () {return view('frontend.game');});
+
 Route::group(['middleware' => ['verified', 'auth']],  function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
-    Route::any('/game', function () {
-        return view('frontend.game');
-    });
-    Route::any('/game-content', function (Request $request) {
-        return view('frontend.game-content');
-    });
-
-
 
     // Admin Routes
     Route::group(['prefix' => 'admin', 'middleware' => 'role:admin'],  function () {
@@ -46,7 +41,13 @@ Route::group(['middleware' => ['verified', 'auth']],  function () {
         Route::resource('roles', RolesController::class, ['name' => 'roles']);
         Route::resource('users', UsersController::class, ['name' => 'users']);
 
+        // OTP
         Route::get('/game-otp', [GameController::class, 'showOTP'])->name('show.otp');
         Route::post('/save-otp', [GameController::class, 'storeOTP'])->name('store.otp');
+
+        // Game Settings
+        Route::get('/game-settings', [GameController::class, 'showSettings'])->name('show.settings');
+        Route::post('/save-settings', [GameController::class, 'storeSettings'])->name('store.settings');
+        Route::post('/save-probability', [GameController::class, 'storeProbability'])->name('store.probability');
     });
 });

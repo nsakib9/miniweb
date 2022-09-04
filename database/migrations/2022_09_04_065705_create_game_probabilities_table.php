@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGameOTPSTable extends Migration
+class CreateGameProbabilitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateGameOTPSTable extends Migration
      */
     public function up()
     {
-        Schema::create('game_o_t_p_s', function (Blueprint $table) {
+        Schema::create('game_probabilities', function (Blueprint $table) {
             $table->id();
-            $table->date('date');
-            $table->date('date_valid_to');
-            $table->string('otp');
-            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }
@@ -30,6 +26,6 @@ class CreateGameOTPSTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('game_o_t_p_s');
+        Schema::dropIfExists('game_probabilities');
     }
 }

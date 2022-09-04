@@ -33,7 +33,7 @@
                         </p>
                     </a>
                 </li>
-                @role('admin')
+                @role('admin|user')
                     <li class="nav-item">
                         <a href="{{route('roles.index')}}" class="nav-link {{ request()->is('admin/roles*') ? 'active' : null }}">
                             <i class="nav-icon fas fa-tasks"></i>
