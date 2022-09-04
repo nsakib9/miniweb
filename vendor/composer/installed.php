@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '56acf48afe1cb41652f8a50b43d9ea661a891ee4',
+        'reference' => '66f75605fbf9ad643b950323d9d812b688b96e85',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -400,7 +400,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '56acf48afe1cb41652f8a50b43d9ea661a891ee4',
+            'reference' => '66f75605fbf9ad643b950323d9d812b688b96e85',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
@@ -545,12 +545,12 @@
             'dev_requirement' => false,
         ),
         'nikic/php-parser' => array(
-            'pretty_version' => 'v4.15.0',
-            'version' => '4.15.0.0',
+            'pretty_version' => 'v4.15.1',
+            'version' => '4.15.1.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../nikic/php-parser',
             'aliases' => array(),
-            'reference' => '617d0220b903895537b25791f52af4698dd19339',
+            'reference' => '0ef6c55a3f47f89d7a374e6f835197a0b5fcf900',
             'dev_requirement' => false,
         ),
         'nunomaduro/collision' => array(
@@ -739,8 +739,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0|2.0',
-                1 => '1.0.0 || 2.0.0 || 3.0.0',
+                0 => '1.0.0 || 2.0.0 || 3.0.0',
+                1 => '1.0|2.0',
             ),
         ),
         'psr/simple-cache' => array(
