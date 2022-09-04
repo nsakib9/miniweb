@@ -54,11 +54,11 @@
     <div class="game-box game-box-2">
         <div class="bg-shadow">
             <div class="logo text-center">
-                <img src="$logo" alt="">
+                <img src="{{asset('/storage/settings/'.$setting->logo)}}" alt="logo--">
             </div>
             <br>
             <a href="{{route('show.settings')}}" target="">Settings</a> &nbsp; &nbsp;
-            <a href="" target="_blank">Play Game</a>
+            <a href="{{route('game')}}" target="_blank">Play Game</a>
 
             <h3 class="title title-2 text-center">管理パネル</h3>
             <div class="point-box">

@@ -50,19 +50,25 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item {{ request()->is('') ? 'menu-open' : null }}">
-                        <a href="#" class="nav-link {{ request()->is('') ? 'active' : null }}">
+                    <li class="nav-item {{ request()->is('/admin/game*') ? 'menu-open' : null }}">
+                        <a href="#" class="nav-link {{ request()->is('/admin/game*') ? 'active' : null }}">
                           <i class="nav-icon fas fa-briefcase"></i>
                           <p>
-                            Menu
+                            Game Controls
                             <i class="right fas fa-angle-left"></i>
                           </p>
                         </a>
                         <ul class="nav nav-treeview">
                           <li class="nav-item">
-                            <a href="#" class="nav-link {{ request()->is('') ? 'active' : null }}">
+                            <a href="{{route('show.otp')}}" class="nav-link {{ request()->is('/admin/game/otp') ? 'active' : null }}">
                               <i class="fas fa-list nav-icon"></i>
-                              <p>Sub Menu</p>
+                              <p>OTP Configuration</p>
+                            </a>
+                          </li>
+                          <li class="nav-item">
+                            <a href="{{route('show.settings')}}" class="nav-link {{ request()->is('/admin/game/settings') ? 'active' : null }}">
+                              <i class="fas fa-list nav-icon"></i>
+                              <p>Settings</p>
                             </a>
                           </li>
                         </ul>

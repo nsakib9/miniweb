@@ -11,21 +11,22 @@ class GameController extends Controller
     private $i = 0;
 
     public function showOTP(){
+        $setting = GameSetting::first();
         $otp = GameOTP::all();
-        return view('frontend.otp', ['otps'=> $otp]);
+        return view('backend.otp', ['otps'=> $otp, 'setting'=> $setting]);
     }
 
     public function storeOTP(Request $request){
         $otp = new GameOTP();
         $otp->fill($request->all());
         if($otp->save()){
-            return redirect('/admin/game-otp');
+            return redirect('/admin/game/otp');
         }
     }
 
     public function showSettings(){
         $setting = GameSetting::first();
-        return view('frontend.settings', ['setting'=> $setting]);
+        return view('backend.settings', ['setting'=> $setting]);
     }
 
     public function storeSettings(Request $request){
@@ -39,7 +40,7 @@ class GameController extends Controller
         }
 
         if($settings->save()){
-            return redirect('/admin/game-settings');
+            return redirect('/admin/game/settings');
         }
     }
 
