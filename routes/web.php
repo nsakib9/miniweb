@@ -6,6 +6,7 @@ use App\Http\Controllers\RolesController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\PlayGameController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 
@@ -22,6 +23,10 @@ use Illuminate\Support\Facades\Request;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/linkstorage', function () {
+    Artisan::call('storage:link');
 });
 
 Auth::routes(['verify' => true]);
