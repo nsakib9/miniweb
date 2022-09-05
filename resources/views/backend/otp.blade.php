@@ -58,7 +58,7 @@
             </div>
             <br>
             <a href="{{route('show.settings')}}" target="">Settings</a> &nbsp; &nbsp;
-            <a href="{{route('game')}}" target="_blank">Play Game</a>
+            <a href="{{route('game.page1')}}" target="_blank">Play Game</a>
 
             <h3 class="title title-2 text-center">管理パネル</h3>
             <div class="point-box">

@@ -15,8 +15,8 @@ class CreateGameOTPSTable extends Migration
     {
         Schema::create('game_o_t_p_s', function (Blueprint $table) {
             $table->id();
-            $table->date('date');
-            $table->date('date_valid_to');
+            $table->date('date')->unique();
+            $table->date('date_valid_to')->unique();
             $table->string('otp');
             $table->boolean('status')->default(1);
             $table->timestamps();

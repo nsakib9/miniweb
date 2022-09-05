@@ -68,7 +68,7 @@
             <!--         START OF SITE SETTING -->
             <br>
             <a href="{{route('show.otp')}}" target="">Add/View OTP</a> &nbsp; &nbsp;
-            <a href="{{route('game')}}" target="_blank">Play Test Game</a>
+            <a href="{{route('game.page1')}}" target="_blank">Play Test Game</a>
             <hr>
             <h3>サイト設定</h3>
             <form class="form-inline" action="{{ route('store.settings') }}" enctype="multipart/form-data"
@@ -190,14 +190,10 @@
                         </tr>
                     </tbody>
                 </table>
-                
             </form>
-
             <br>
 
             <!--         END OF PAGE 5 SETTING -->
-
-
         </div>
     </div>
 

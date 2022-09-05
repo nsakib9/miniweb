@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\PlayGameController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 
@@ -30,7 +31,14 @@ Route::post('register/submit', [UsersController::class, 'store'])->name('registe
 Route::post('/login', [UsersController::class, 'login'])->name('login.agent');
 
 //Game
-Route::any('/game', function () {return view('frontend.game');});
+Route::group(['prefix' => 'game'],  function () {
+
+    Route::get('/', [PlayGameController::class, 'page1'])->name('game.page1');
+    Route::get('/page2', [PlayGameController::class, 'page2'])->name('game.page2');
+    Route::get('/page3', [PlayGameController::class, 'page3'])->name('game.page3');
+    Route::get('/page4', [PlayGameController::class, 'page4'])->name('game.page4');
+    Route::get('/page5', [PlayGameController::class, 'page5'])->name('game.page5');
+});
 
 Route::group(['middleware' => ['verified', 'auth']],  function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
