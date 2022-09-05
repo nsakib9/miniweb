@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\GameOTP;
 use App\Models\GameSetting;
+use App\Models\GameTrack;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class GameController extends Controller
@@ -23,6 +25,13 @@ class GameController extends Controller
         $otp->fill($request->all());
         if ($otp->save()) {
             return redirect('/admin/game/otp');
+        }
+    }
+
+    public function destroyOTP($id){
+        $otp = GameOTP::find($id);
+        if($otp->delete()){
+            return back();
         }
     }
 
@@ -97,5 +106,18 @@ class GameController extends Controller
                 return $image_name;
             }
         }
+    }
+
+    public function pointLog(){
+        $points = GameTrack::with(['user'])->get();
+        
+        return view('backend.point_log', ['points' => $points]);
+    }
+
+    public function userLog(){
+        $points = GameTrack::with(['user'])->get();
+        
+        // dd($points);
+        return view('backend.user_log', ['points' => $points]);
     }
 }

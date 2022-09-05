@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-        {{-- <img src="" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
+        <img src="{{asset('assets/frontend/img/cow.png')}}" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">{{@config('app.name')}}</span>
     </a>
 
@@ -47,6 +47,22 @@
                             <i class="nav-icon fas fa-user"></i>
                             <p>
                                 User Management
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('pointLog')}}" class="nav-link {{ request()->is('admin/point-log') ? 'active' : null }}">
+                            <i class="nav-icon fas fa-list"></i>
+                            <p>
+                                Point Log
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('userLog')}}" class="nav-link {{ request()->is('admin/user-log') ? 'active' : null }}">
+                            <i class="nav-icon fas fa-list"></i>
+                            <p>
+                                User Log
                             </p>
                         </a>
                     </li>

@@ -57,6 +57,7 @@
                 <img src="{{asset('/storage/settings/'.$setting->logo)}}" alt="logo--">
             </div>
             <br>
+            <a href="{{route('dashboard')}}" target="">Dashboard</a> &nbsp; &nbsp;
             <a href="{{route('show.settings')}}" target="">Settings</a> &nbsp; &nbsp;
             <a href="{{route('game.page1')}}" target="_blank">Play Game</a>
 
@@ -112,10 +113,17 @@
                         <td>{{($otp->status)? 'Active' : 'Deactive'}}</td>
                         <td>{{$otp->created_at}}</td>
                         <td>
-                            <a href="">Edit</a>
+                            <a href="{{route('otp.edit', $otp->id)}}">EDIT</a>
                         </td>
                         <td>
-                            <a href="">Delete</a>
+                            <a href="{{ route('otp.destroy', $otp->id) }}"
+                                onclick="event.preventDefault(); document.getElementById('delete-form-{{$otp->id}}').submit();">
+                                DELETE
+                            </a>
+                            <form id="delete-form-{{$otp->id}}" action="{{ route('otp.destroy', $otp->id) }}" method="POST" style="display: none;">
+                              @method('DELETE')
+                                @csrf
+                            </form>
                         </td>
                     </tr> 
                 @endforeach

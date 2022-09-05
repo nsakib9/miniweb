@@ -52,10 +52,18 @@ Route::group(['middleware' => ['verified', 'auth']],  function () {
         // OTP
         Route::get('/game/otp', [GameController::class, 'showOTP'])->name('show.otp');
         Route::post('/save-otp', [GameController::class, 'storeOTP'])->name('store.otp');
+        Route::post('/edit-otp', [GameController::class, 'updateOTP'])->name('otp.edit');
+        Route::delete('/delete-otp/{id}', [GameController::class, 'destroyOTP'])->name('otp.destroy');
 
         // Game Settings
         Route::get('/game/settings', [GameController::class, 'showSettings'])->name('show.settings');
         Route::post('/save-settings', [GameController::class, 'storeSettings'])->name('store.settings');
         Route::post('/save-probability', [GameController::class, 'storeProbability'])->name('store.probability');
+
+        // Point Log
+        Route::get('/point-log', [GameController::class, 'pointLog'])->name('pointLog');
+
+        // User Log
+        Route::get('/user-log', [GameController::class, 'userLog'])->name('userLog');
     });
 });

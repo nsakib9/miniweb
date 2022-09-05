@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\GameTrack;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -54,4 +55,9 @@ class User extends Authenticatable implements MustVerifyEmail
         }
         return $hasPermission;
     }
+
+    public function gameTrack(){
+        return $this->hasOne(GameTrack::class, 'user_id');
+    }
+
 }

@@ -36,7 +36,7 @@
 
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="" alt="" height="60" width="250">
+    <img class="animation__shake" src="{{asset('assets/frontend/img/logo.png')}}" alt="" height="60" width="250">
   </div>
 
   <!-- Navbar -->

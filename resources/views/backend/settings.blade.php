@@ -67,6 +67,7 @@
 
             <!--         START OF SITE SETTING -->
             <br>
+            <a href="{{route('dashboard')}}" target="">Dashboard</a> &nbsp; &nbsp;
             <a href="{{route('show.otp')}}" target="">Add/View OTP</a> &nbsp; &nbsp;
             <a href="{{route('game.page1')}}" target="_blank">Play Test Game</a>
             <hr>
