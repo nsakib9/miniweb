@@ -28,7 +28,7 @@
                         <td>{{ $point->user->email }}</td>
                         <td>{{ $point->score }}</td>
                         <td>{{ $point->created_at }}</td>
-                        <td>{{ $point->track }}</td>
+                        <td>{{ ($point->score == null)? '失敗' : "成功" }}</td>
                         <td>
                             <a href="{{route('users.edit', $point->id)}}" class="btn btn-info"><i class="fas fa-edit"></i></a>
                             <a class="btn btn-danger" href="{{ route('users.destroy', $point->id) }}" class="nav-link"
