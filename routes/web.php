@@ -43,6 +43,7 @@ Route::group(['prefix' => 'game'],  function () {
     Route::get('/page3', [PlayGameController::class, 'page3'])->name('game.page3');
     Route::get('/page4', [PlayGameController::class, 'page4'])->name('game.page4');
     Route::get('/page5', [PlayGameController::class, 'page5'])->name('game.page5');
+    Route::get('/page6', [PlayGameController::class, 'page6'])->name('game.page6');
 });
 
 Route::group(['middleware' => ['verified', 'auth']],  function () {

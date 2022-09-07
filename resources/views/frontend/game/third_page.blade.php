@@ -10,24 +10,26 @@
 </head>
 <body>
     
-    <div class="game-box">
-        <div class="bg-white">
-            <div class="logo">
-                <img src="{{ asset('/storage/settings/' . $setting->logo) }}" alt="logo">
-            </div>
-            
-            <div class="cow three-column">
-                <a href="{{route('game.page4')}}"><img src="{{ asset('/storage/settings/' . $setting->game_img) }}" alt="cow"></a>
-                <a href="{{route('game.page4')}}"><img src="{{ asset('/storage/settings/' . $setting->game_img) }}" alt="cow"></a>
-                <a href="{{route('game.page4')}}"><img src="{{ asset('/storage/settings/' . $setting->game_img) }}" alt="cow"></a>
-                <a href="{{route('game.page4')}}"><img src="{{ asset('/storage/settings/' . $setting->game_img) }}" alt="cow"></a>
-                <a href="{{route('game.page4')}}"><img src="{{ asset('/storage/settings/' . $setting->game_img) }}" alt="cow"></a>
-                <a href="{{route('game.page4')}}"><img src="{{ asset('/storage/settings/' . $setting->game_img) }}" alt="cow"></a>
-            </div>
+    <div class="smartphone">
+        <div class="game-box">
+            <div class="bg-white">
+                <div class="logo">
+                    <img src="{{ asset('/storage/settings/' . $setting->logo) }}" alt="logo">
+                </div>
+                
+                <div class="cow three-column">
+                    <a href="{{route('game.page4')}}"><img src="{{ asset('/storage/settings/' . $setting->game_img) }}" alt="cow"></a>
+                    <a href="{{route('game.page4')}}"><img src="{{ asset('/storage/settings/' . $setting->game_img) }}" alt="cow"></a>
+                    <a href="{{route('game.page4')}}"><img src="{{ asset('/storage/settings/' . $setting->game_img) }}" alt="cow"></a>
+                    <a href="{{route('game.page4')}}"><img src="{{ asset('/storage/settings/' . $setting->game_img) }}" alt="cow"></a>
+                    <a href="{{route('game.page4')}}"><img src="{{ asset('/storage/settings/' . $setting->game_img) }}" alt="cow"></a>
+                    <a href="{{route('game.page4')}}"><img src="{{ asset('/storage/settings/' . $setting->game_img) }}" alt="cow"></a>
+                </div>
 
-            <h4 class="title">{!! $setting->pg3_title !!}</h4>
-            <h4 class="title title-3">{{$setting->pg3_caution}}</h4>
+                <h4 class="title">{!! $setting->pg3_title !!}</h4>
+                <h4 class="title title-3">{{$setting->pg3_caution}}</h4>
 
+            </div>
         </div>
     </div>
 

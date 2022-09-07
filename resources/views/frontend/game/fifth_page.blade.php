@@ -12,27 +12,30 @@
 
 <body>
 
-    <div class="game-box">
-        <div class="bg-white">
-            <div class="logo">
-                <img src="{{ asset('/storage/settings/' . $setting->logo) }}" alt="logo">
-            </div>
-            <h3 class="title title-2">{{ $setting->pg5_title }}</h3>
-            <div class="point-box">
-                @if (!empty($message))
-                    <div class="title">{{$message}}</div>
-                @else
-                <div class="point-circle">
-                    <span class="point">{{ $score }}</span>
-                    <span class="point-text">点</span>
+    <div class="smartphone">
+        <div class="game-box">
+            <div class="bg-white">
+                <div class="logo">
+                    <img src="{{ asset('/storage/settings/' . $setting->logo) }}" alt="logo">
                 </div>
-                @endif
-            </div>
+                <h3 class="title title-2">{{ $setting->pg5_title }}</h3>
+                <div class="point-box">
+                     @if (!empty($message))
+                        <div class="title"><span style="color:red;"> {{$message}} </span></div>
+                        <img src="{{ asset('/storage/settings/' . $setting->game_img) }}" alt="cow"> 
+                @else
+                    <div class="point-circle">
+                        <span class="point">{{ $score }}</span>
+                        <span class="point-text">点</span>
+                    </div>
+                    @endif
+                </div>
 
-            <div class="btn btn-2">
-                <a href="#" class="">
-                    {!! $setting->pg5_title2 !!}
-                </a>
+                <div class="btn btn-2">
+                    <a href="{{route('game.page6')}}" class="">
+                        {!! $setting->pg5_title2 !!}
+                    </a>
+                </div>
             </div>
         </div>
     </div>

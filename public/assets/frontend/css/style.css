@@ -8,8 +8,8 @@
 	padding: 40px 0;
 }
 .game-box {
-	width: 343px;
-	height: 615px;
+	width: auto;
+	height: 100%;
 	background: url('../img/background.png') no-repeat center / cover;
 	margin: 0 auto;
 	display: flex;
@@ -140,8 +140,8 @@
     bottom: 25px;
     margin-left: 10px;
 }
-.game-box .btn-2 button {
-	background: url(/wp-content/uploads/2022/08/button.png) no-repeat center / contain;
+.game-box .btn-2 a {
+	background: url(../img/button.png) no-repeat center / contain;
 	display: block;
 	padding: 20px;
 	position: absolute;

@@ -12,23 +12,25 @@
 
 <body>
 
-    <div class="game-box">
-        <div class="bg-white">
-            <div class="logo">
-                <img src="{{ asset('/storage/settings/' . $setting->logo) }}" alt="logo">
-            </div>
-            <h4 class="title">{{$setting->page1_body_title}}</h4>
-            <div class="input-box">
-                    <div class="input-field">
-                        <input type="text" id="1" pattern="[0-9]*" inputtype="numeric" maxlength=1 required>
-                        <input type="text" id="2" pattern="[0-9]*" inputtype="numeric" maxlength=1 required>
-                        <input type="text" id="3" pattern="[0-9]*" inputtype="numeric" maxlength=1 required>
-                        <input type="text" id="4" pattern="[0-9]*" inputtype="numeric" maxlength=1 required>
-                    </div>
+    <div class="smartphone">
+        <div class="game-box">
+            <div class="bg-white">
+                <div class="logo">
+                    <img src="{{ asset('/storage/settings/' . $setting->logo) }}" alt="logo">
+                </div>
+                <h4 class="title">{{$setting->page1_body_title}}</h4>
+                <div class="input-box">
+                        <div class="input-field">
+                            <input type="text" id="1" pattern="[0-9]*" inputtype="numeric" maxlength=1 required>
+                            <input type="text" id="2" pattern="[0-9]*" inputtype="numeric" maxlength=1 required>
+                            <input type="text" id="3" pattern="[0-9]*" inputtype="numeric" maxlength=1 required>
+                            <input type="text" id="4" pattern="[0-9]*" inputtype="numeric" maxlength=1 required>
+                        </div>
 
-                    <div class="submit">
-                        <button type="" onclick="matchCode()">{{$setting->page1_button_title}}</button>
-                    </div>
+                        <div class="submit">
+                            <button type="" onclick="matchCode()">{{$setting->page1_button_title}}</button>
+                        </div>
+                </div>
             </div>
         </div>
     </div>
