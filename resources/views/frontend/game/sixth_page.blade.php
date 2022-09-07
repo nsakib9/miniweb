@@ -20,7 +20,7 @@
                 </div>
                 <div class="point-box">
                     <div class="point-circl">
-                        <h3 class="title title-4">グーム参加ありがとうございます game-admin 様 今回の獲得[:3 」点を送ります </h3>
+                        <h3 class="title title-4">グーム参加ありがとうございます {{auth()->user()->name}} 様 今回の獲得[: {{$score->score}}」点を送ります </h3>
                     </div>
                 </div>
             </div>

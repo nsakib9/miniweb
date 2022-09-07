@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header row">
-              <div class="col-md-6"><h3 class="card-title">Point Log</h3></div>
+              <div class="col-md-6"><h3 class="card-title">User Log</h3></div>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -31,7 +31,7 @@
                         <td></td>
                         <td>{{ $point->user->total_points }}</td>
                         <td>{{ ($point->user->total_points)/50 }}</td>
-                        <td>
+                        {{-- <td>
                             <a href="{{route('users.edit', $point->id)}}" class="btn btn-info"><i class="fas fa-edit"></i></a>
                             <a class="btn btn-danger" href="{{ route('users.destroy', $point->id) }}" class="nav-link"
                                 onclick="event.preventDefault(); document.getElementById('delete-form-{{$point->id}}').submit();">
@@ -41,7 +41,7 @@
                               @method('DELETE')
                                 @csrf
                             </form>
-                        </td>
+                        </td> --}}
                       </tr>
                     @endforeach
                 </tbody>

@@ -110,9 +110,9 @@ class GameController extends Controller
         $settings->pg5_title2 = $request->pg5_title2;
         $settings->login_access = $request->login_access;
 
-        $settings->logo = $this->imageUpload($settings, $request->logo) ?? $settings->logo;
-        $settings->background_image = $this->imageUpload($settings, $request->background_image) ?? $settings->background_image;
-        $settings->game_img = $this->imageUpload($settings, $request->game_img) ?? $settings->game_img;
+        $settings->logo = $this->imageUpload($settings, $request->logo, 1) ?? $settings->logo;
+        $settings->background_image = $this->imageUpload($settings, $request->background_image, 2) ?? $settings->background_image;
+        $settings->game_img = $this->imageUpload($settings, $request->game_img, 3) ?? $settings->game_img;
 
         $settings->point_1 = $request->point_1;
         $settings->point_2 = $request->point_2;
@@ -126,16 +126,27 @@ class GameController extends Controller
         return $settings;
     }
 
-    private function imageUpload($settings, $image)
+    private function imageUpload($settings, $image, $image_type)
     {
-
         $this->i++;
         if (!empty($image)) {
-            if (!file_exists('public/settings/' . $image)) {
+            if (!file_exists(public_path('storage/settings/' . $image))) {
+                if($image_type == 1){
+                    unlink(public_path('storage/settings/' . $settings->logo));
+                }
+                elseif($image_type == 2){
+                    unlink(public_path('storage/settings/' . $settings->background_image));
+                }
+                else{
+                    unlink(public_path('storage/settings/' . $settings->game_img));
+                }
                 $image_name = $this->i . '-' . time() . '.' . $image->getClientOriginalExtension();
                 $path = $image->storeAs('public/settings/', $image_name);
                 return $image_name;
             }
+        }else{
+            session()->flash('error', 'Image already exists');
+            return back();
         }
     }
 

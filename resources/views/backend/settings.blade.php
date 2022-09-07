@@ -64,7 +64,7 @@
             <div class="logo text-center">
                 <img src="{{asset('/storage/settings/'.$setting->logo)}}" alt="logo--">
             </div>
-
+            @include('message')
             <!--         START OF SITE SETTING -->
             <br>
             <a href="{{route('dashboard')}}" target="">Dashboard</a> &nbsp; &nbsp;

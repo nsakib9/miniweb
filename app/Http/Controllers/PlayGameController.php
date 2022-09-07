@@ -87,16 +87,16 @@ class PlayGameController extends Controller
                     $track->save();
 
                     $totalPoints = User::where('id', '=', Auth::id())->first();
-                    $totalPoints->total_points = $totalPoints->total_points + $score;
+                    $previousPint = $totalPoints->total_points;
+                    $newPoint = $totalPoints->total_points = $totalPoints->total_points + $score;
                     $totalPoints->save();
-
-                    $tickets = $totalPoints->total_points;
-                    if((($tickets % 50) >= 0)  && (($tickets % 50)  < 50) ){
+                    
+                    if (floor($previousPint / 50) < floor($newPoint / 50)) {
                         $email = [
-                                'total_points' => $totalPoints->total_points,
-                                'tickets' => $tickets/50
-                            ];
-                            Mail::to($totalPoints->email)->send(new notifyTicket($email));
+                            'total_points' => $totalPoints->total_points,
+                            'tickets' => $newPoint / 50
+                        ];
+                        Mail::to($totalPoints->email)->send(new notifyTicket($email));
                     }
 
                     return view('frontend.game.fifth_page', ['score' => $score, 'setting' => $setting]);
@@ -107,5 +107,12 @@ class PlayGameController extends Controller
         } else {
             return view('frontend.game.fourth_page', ['setting' => $setting]);
         }
+    }
+
+    public function page6()
+    {
+        $setting = GameSetting::first();
+        $score = GameTrack::where('user_id', '=', Auth::id())->latest()->first();
+        return view('frontend.game.sixth_page', ['score' => $score, 'setting' => $setting]);
     }
 }
