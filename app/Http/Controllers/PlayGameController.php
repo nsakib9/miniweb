@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\notifyTicket;
 use App\Models\GameOTP;
 use App\Models\GameSetting;
 use App\Models\GameTrack;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class PlayGameController extends Controller
 {
@@ -55,7 +58,7 @@ class PlayGameController extends Controller
         $setting = GameSetting::first();
 
         if (Auth::check()) {
-            if (!GameTrack::where('track', '=', '1')) {
+            if ((GameTrack::where([['track', '=', '1'], ['user_id', '=', Auth::id()]])->latest())) {
                 if (!GameTrack::where('otp_mached', '=', '1')) {
                     return view('frontend.game.first_page', ['setting' => $setting]);
                 } else {
@@ -79,12 +82,24 @@ class PlayGameController extends Controller
                     $track->user_id = Auth::id();
                     $track->score = $score;
                     $track->track = 1;
-
                     $trackTime = Carbon::now();
                     $track->trackTime = $trackTime->toDateTimeString();
                     $track->save();
 
-                    return view('frontend.game.fifth_page', ['score' => $score]);
+                    $totalPoints = User::where('id', '=', Auth::id())->first();
+                    $totalPoints->total_points = $totalPoints->total_points + $score;
+                    $totalPoints->save();
+
+                    $tickets = $totalPoints->total_points;
+                    if((($tickets % 50) >= 0)  && (($tickets % 50)  < 50) ){
+                        $email = [
+                                'total_points' => $totalPoints->total_points,
+                                'tickets' => $tickets/50
+                            ];
+                            Mail::to($totalPoints->email)->send(new notifyTicket($email));
+                    }
+
+                    return view('frontend.game.fifth_page', ['score' => $score, 'setting' => $setting]);
                 }
             } else {
                 return view('frontend.game.fifth_page', ['message' => 'You have played this game within 24 hours. Please Try again later!', 'setting' => $setting]);

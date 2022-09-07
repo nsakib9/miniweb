@@ -6,7 +6,9 @@ use App\Models\GameOTP;
 use App\Models\GameSetting;
 use App\Models\GameTrack;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GameController extends Controller
 {
@@ -28,9 +30,10 @@ class GameController extends Controller
         }
     }
 
-    public function destroyOTP($id){
+    public function destroyOTP($id)
+    {
         $otp = GameOTP::find($id);
-        if($otp->delete()){
+        if ($otp->delete()) {
             return back();
         }
     }
@@ -108,16 +111,18 @@ class GameController extends Controller
         }
     }
 
-    public function pointLog(){
+    public function pointLog()
+    {
         $points = GameTrack::with(['user'])->get();
-        
+
         return view('backend.point_log', ['points' => $points]);
     }
 
-    public function userLog(){
-        $points = GameTrack::with(['user'])->get();
-        
-        // dd($points);
+    public function userLog()
+    {
+        // $points = GameTrack::select(['game_tracks.id', 'game_tracks.user_id', DB::raw('SUM(score) as total_points')])->groupBy('game_tracks.user_id')->with(['user'])->get();
+        $points = GameTrack::groupBy('user_id')->with(['user'])->get();
+
         return view('backend.user_log', ['points' => $points]);
     }
 }

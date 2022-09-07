@@ -28,12 +28,9 @@
                         <td>{{ $loop->index+1 }}</td>
                         <td>{{ $point->user->created_at }}</td>
                         <td>{{ $point->user->name }}</td>
-                        <td>
-                          
-                          {{ $point->score }}
-                        </td>
-                        <td>{{ $point->created_at }}</td>
-                        <td>{{ $point->track }}</td>
+                        <td></td>
+                        <td>{{ $point->user->total_points }}</td>
+                        <td>{{ ($point->user->total_points)/50 }}</td>
                         <td>
                             <a href="{{route('users.edit', $point->id)}}" class="btn btn-info"><i class="fas fa-edit"></i></a>
                             <a class="btn btn-danger" href="{{ route('users.destroy', $point->id) }}" class="nav-link"
