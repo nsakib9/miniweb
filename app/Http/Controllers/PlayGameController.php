@@ -102,7 +102,7 @@ class PlayGameController extends Controller
                     return view('frontend.game.fifth_page', ['score' => $score, 'setting' => $setting]);
                 }
             } else {
-                return view('frontend.game.fifth_page', ['message' => 'You have played this game within 24 hours. Please Try again later!', 'setting' => $setting]);
+                return view('frontend.game.fifth_page', ['message' => '過去24時間以内にプレイしたため、現在プレイできません。 後でお試しください', 'setting' => $setting]);
             }
         } else {
             return view('frontend.game.fourth_page', ['setting' => $setting]);

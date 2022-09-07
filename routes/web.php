@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Request;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('frontend.welcome');
 });
 
 Route::get('/linkstorage', function () {
@@ -57,7 +57,8 @@ Route::group(['middleware' => ['verified', 'auth']],  function () {
         // OTP
         Route::get('/game/otp', [GameController::class, 'showOTP'])->name('show.otp');
         Route::post('/save-otp', [GameController::class, 'storeOTP'])->name('store.otp');
-        Route::post('/edit-otp', [GameController::class, 'updateOTP'])->name('otp.edit');
+        Route::get('/edit-otp/{id}', [GameController::class, 'editOTP'])->name('otp.edit');
+        Route::put('/update-otp/{id}', [GameController::class, 'updateOTP'])->name('update.otp');
         Route::delete('/delete-otp/{id}', [GameController::class, 'destroyOTP'])->name('otp.destroy');
 
         // Game Settings
