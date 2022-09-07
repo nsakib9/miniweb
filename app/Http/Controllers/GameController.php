@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class GameController extends Controller
 {
@@ -17,13 +18,40 @@ class GameController extends Controller
     public function showOTP()
     {
         $setting = GameSetting::first();
-        $otp = GameOTP::all();
+        $otp = GameOTP::simplePaginate(15);
         return view('backend.otp', ['otps' => $otp, 'setting' => $setting]);
+    }
+
+    public function editOTP($id)
+    {
+        $setting = GameSetting::first();
+        $otp = GameOTP::find($id);
+        $allotp = GameOTP::simplePaginate(15);
+        return view('backend.otp', ['otp' => $otp, 'otps' => $allotp, 'setting' => $setting]);
     }
 
     public function storeOTP(Request $request)
     {
+        $validation = $request->validate([
+            'date' => 'required|unique:game_o_t_p_s,date',
+            'date_valid_to' => 'required|unique:game_o_t_p_s,date_valid_to|after_or_equal:date',
+            'otp' => 'required|unique:game_o_t_p_s,otp'
+        ],[
+            'date.unique' => 'Effective Date has already been defined',
+            'date_valid_to.unique' => 'Date of expiry has already been defined',
+            'date_valid_to.after_or_equal' => 'Date of Expiry must be a date after or equal to Effective date',
+        ]);
+
         $otp = new GameOTP();
+        $otp->fill($request->all());
+        if ($otp->save()) {
+            return redirect('/admin/game/otp');
+        }
+    }
+
+    public function updateOTP(Request $request, $id)
+    {
+        $otp = GameOTP::find($id);
         $otp->fill($request->all());
         if ($otp->save()) {
             return redirect('/admin/game/otp');
