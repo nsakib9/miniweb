@@ -37,7 +37,7 @@ class GameController extends Controller
             'date' => 'required|unique:game_o_t_p_s,date',
             'date_valid_to' => 'required|unique:game_o_t_p_s,date_valid_to|after_or_equal:date',
             'otp' => 'required|unique:game_o_t_p_s,otp'
-        ],[
+        ], [
             'date.unique' => 'Effective Date has already been defined',
             'date_valid_to.unique' => 'Date of expiry has already been defined',
             'date_valid_to.after_or_equal' => 'Date of Expiry must be a date after or equal to Effective date',
@@ -111,9 +111,9 @@ class GameController extends Controller
         $settings->pg5_title2 = $request->pg5_title2;
         $settings->login_access = $request->login_access;
 
-        $settings->logo = $this->imageUpload($settings, $request->logo, 1) ?? $settings->logo;
-        $settings->background_image = $this->imageUpload($settings, $request->background_image, 2) ?? $settings->background_image;
-        $settings->game_img = $this->imageUpload($settings, $request->game_img, 3) ?? $settings->game_img;
+        $settings->logo = $this->imageUpload($settings, $request->logo, 1);
+        $settings->background_image = $this->imageUpload($settings, $request->background_image, 2);
+        $settings->game_img = $this->imageUpload($settings, $request->game_img, 3);
 
         $settings->point_1 = $request->point_1;
         $settings->point_2 = $request->point_2;
@@ -131,23 +131,32 @@ class GameController extends Controller
     {
         $this->i++;
         if (!empty($image)) {
-            if (!file_exists(public_path('storage/settings/' . $image))) {
-                if($image_type == 1){
+            if ($image_type == 1) {
+                if (file_exists(public_path('storage/settings/' . $settings->logo))) {
                     unlink(public_path('storage/settings/' . $settings->logo));
                 }
-                elseif($image_type == 2){
+            } elseif ($image_type == 2) {
+                if (file_exists(public_path('storage/settings/' . $settings->logo))) {
                     unlink(public_path('storage/settings/' . $settings->background_image));
                 }
-                else{
+            } else {
+                if (file_exists(public_path('storage/settings/' . $settings->logo))) {
                     unlink(public_path('storage/settings/' . $settings->game_img));
                 }
-                $image_name = $this->i . '-' . time() . '.' . $image->getClientOriginalExtension();
-                $path = $image->storeAs('public/settings/', $image_name);
-                return $image_name;
             }
-        }else{
-            session()->flash('error', 'Image already exists');
-            return back();
+
+            $image_name = $this->i . '-' . time() . '.' . $image->getClientOriginalExtension();
+            $path = $image->storeAs('public/settings/', $image_name);
+            return $image_name;
+            
+        } else {
+            if ($image_type == 1) {
+                return $settings->logo;
+            } elseif ($image_type == 2) {
+                return $settings->background_image;
+            } else {
+                return $settings->game_img;
+            }
         }
     }
 
@@ -163,7 +172,7 @@ class GameController extends Controller
         $points = GameTrack::where('user_id', '=', $id)->with(['user'])->get();
         $user = User::find($id);
 
-        return view('backend.single_user_log', ['points' => $points, 'user' =>$user]);
+        return view('backend.single_user_log', ['points' => $points, 'user' => $user]);
     }
 
     public function usersLog()

@@ -10,6 +10,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class PlayGameController extends Controller
@@ -34,6 +35,7 @@ class PlayGameController extends Controller
             $track = new GameTrack();
             $track->user_id = Auth::id();
             $track->otp_mached = 1;
+            $track->track = 0;
             $track->save();
         }
 
@@ -86,8 +88,8 @@ class PlayGameController extends Controller
                             $score = $k;
                         }
                     }
-
-                    $track = new GameTrack();
+                    
+                    $track = GameTrack::find(Auth::id());
                     $track->user_id = Auth::id();
                     $track->score = $score;
                     $track->track = 1;
@@ -95,11 +97,12 @@ class PlayGameController extends Controller
                     $track->trackTime = $trackTime->toDateTimeString();
                     $track->save();
 
-                    $totalPoints = User::where('id', '=', Auth::id())->first();
-                    $previousPint = $totalPoints->total_points;
-                    $newPoint = $totalPoints->total_points = $totalPoints->total_points + $score;
-                    $totalPoints->save();
 
+                    $points = GameTrack::selectRaw('SUM(score) as total_points')->where('user_id', '=', Auth::id())->get();
+                    $totalPoints = User::where('id', '=', Auth::id())->first();
+                    $previousPint = $points[0]->total_points;
+                    $newPoint = $totalPoints->total_points = $points[0]->total_points;
+                    $totalPoints->save();
                     if (floor($previousPint / 50) < floor($newPoint / 50)) {
                         $email = [
                             'total_points' => $totalPoints->total_points,
