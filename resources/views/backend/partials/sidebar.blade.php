@@ -33,7 +33,7 @@
                         </p>
                     </a>
                 </li>
-                @role('admin|user')
+                @role('admin')
                     <li class="nav-item">
                         <a href="{{route('roles.index')}}" class="nav-link {{ request()->is('admin/roles*') ? 'active' : null }}">
                             <i class="nav-icon fas fa-tasks"></i>
@@ -58,14 +58,14 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{route('userLog')}}" class="nav-link {{ request()->is('admin/user-log') ? 'active' : null }}">
+                    {{-- <li class="nav-item">
+                        <a href="{{route('usersLog')}}" class="nav-link {{ request()->is('admin/users-log') ? 'active' : null }}">
                             <i class="nav-icon fas fa-list"></i>
                             <p>
                                 User Log
                             </p>
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item {{ request()->is('/admin/game*') ? 'menu-open' : null }}">
                         <a href="#" class="nav-link {{ request()->is('/admin/game*') ? 'active' : null }}">
                           <i class="nav-icon fas fa-briefcase"></i>

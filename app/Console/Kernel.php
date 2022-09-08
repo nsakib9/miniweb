@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\OTPCron::class,
+        Commands\TrackPlayCron::class,
     ];
 
     /**
@@ -25,7 +26,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('otp:cron')->dailyAt('12:10');
-        $schedule->command('otp:cron')->everyMinute();
+        $schedule->command('otp:cron')->hourly();
+        $schedule->command('trackplay:cron')->everyMinute();
     }
 
     /**

@@ -58,9 +58,18 @@ class PlayGameController extends Controller
         $setting = GameSetting::first();
 
         if (Auth::check()) {
-            if ((GameTrack::where([['track', '=', '1'], ['user_id', '=', Auth::id()]])->latest())) {
-                if (!GameTrack::where('otp_mached', '=', '1')) {
-                    return view('frontend.game.first_page', ['setting' => $setting]);
+            $lastPlayed = GameTrack::where([['track', '=', '0'], ['user_id', '=', Auth::id()]])->get()->last();
+            if (!empty($lastPlayed)) {
+                $otpCheck = GameTrack::where([['otp_mached', '=', '1'], ['user_id', '=', Auth::id()]])->get()->last();
+                if (empty($otpCheck)) {
+                    $code = GameOTP::where('status', '=', '1')->get('otp');
+                    if (!$code->isEmpty()) {
+                        $otp = $code[0]->otp;
+                        return view('frontend.game.first_page', ['otp' => $otp, 'setting' => $setting]);
+                    } else {
+                        $otp = 'Error';
+                        return view('frontend.game.first_page', ['otp' => $otp, 'setting' => $setting]);
+                    }
                 } else {
                     $Sec_Max = $setting->probablity_1 + $setting->probablity_2;
                     $Third_Max = $Sec_Max + $setting->probablity_3;
@@ -90,7 +99,7 @@ class PlayGameController extends Controller
                     $previousPint = $totalPoints->total_points;
                     $newPoint = $totalPoints->total_points = $totalPoints->total_points + $score;
                     $totalPoints->save();
-                    
+
                     if (floor($previousPint / 50) < floor($newPoint / 50)) {
                         $email = [
                             'total_points' => $totalPoints->total_points,

@@ -8,6 +8,7 @@ use App\Models\GameTrack;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -157,11 +158,19 @@ class GameController extends Controller
         return view('backend.point_log', ['points' => $points]);
     }
 
-    public function userLog()
+    public function singleUserLog($id)
+    {
+        $points = GameTrack::where('user_id', '=', $id)->with(['user'])->get();
+        $user = User::find($id);
+
+        return view('backend.single_user_log', ['points' => $points, 'user' =>$user]);
+    }
+
+    public function usersLog()
     {
         // $points = GameTrack::select(['game_tracks.id', 'game_tracks.user_id', DB::raw('SUM(score) as total_points')])->groupBy('game_tracks.user_id')->with(['user'])->get();
         $points = GameTrack::groupBy('user_id')->with(['user'])->get();
 
-        return view('backend.user_log', ['points' => $points]);
+        return view('backend.users_log', ['points' => $points]);
     }
 }

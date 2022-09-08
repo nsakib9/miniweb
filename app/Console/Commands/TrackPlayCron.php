@@ -2,18 +2,18 @@
 
 namespace App\Console\Commands;
 
-use App\Models\GameOTP;
+use App\Models\GameTrack;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-class OTPCron extends Command
+class TrackPlayCron extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'otp:cron';
+    protected $signature = 'trackplay:cron';
 
     /**
      * The console command description.
@@ -39,22 +39,14 @@ class OTPCron extends Command
      */
     public function handle()
     {
-        
-        $otps = GameOTP::all();
-        foreach($otps as $otp){
+        $tracks = GameTrack::all();
+        $newDateTime = Carbon::now()->subHour(24);
+        foreach($tracks as $track){
             // \Log::info(date('Y-m-d', strtotime($otp->date_valid_to. ' + 1 days')));
-            if($otp->date == Carbon::now()->toDateString()){
-                $otpUpdate = GameOTP::find($otp->id);
-                $otpUpdate->status = 1;
-                $otpUpdate->save();
-            }
-        }
-
-        foreach($otps as $otp){
-            if((date('Y-m-d', strtotime($otp->date_valid_to. ' + 1 days'))) == Carbon::now()->toDateString()){
-                $otpUpdate = GameOTP::find($otp->id);
-                $otpUpdate->status = 0;
-                $otpUpdate->save();
+            if($track->trackTime <= $newDateTime){
+                $trackTimeUpdate = GameTrack::find($track->id);
+                $trackTimeUpdate->track = 0;
+                $trackTimeUpdate->save();
             }
         }
     }

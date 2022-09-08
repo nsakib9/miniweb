@@ -69,8 +69,9 @@ Route::group(['middleware' => ['verified', 'auth']],  function () {
 
         // Point Log
         Route::get('/point-log', [GameController::class, 'pointLog'])->name('pointLog');
+        Route::get('/user-log/mw-uid={id}', [GameController::class, 'singleUserLog'])->name('singleUserLog');
 
-        // User Log
-        Route::get('/user-log', [GameController::class, 'userLog'])->name('userLog');
+        // All Users Log
+        Route::get('/users-log', [GameController::class, 'usersLog'])->name('usersLog');
     });
 });

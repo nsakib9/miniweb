@@ -20,19 +20,19 @@
                 </div>
                 <h3 class="title title-2">{{ $setting->pg5_title }}</h3>
                 <div class="point-box">
-                     @if (!empty($message))
-                        <div class="title"><span style="color:red;"> {{$message}} </span></div>
-                        <img src="{{ asset('/storage/settings/' . $setting->game_img) }}" alt="cow"> 
-                @else
-                    <div class="point-circle">
-                        <span class="point">{{ $score }}</span>
-                        <span class="point-text">点</span>
-                    </div>
+                    @if (!empty($message))
+                        <div class="title"><span style="color:red;"> {{ $message }} </span></div>
+                        <img src="{{ asset('/storage/settings/' . $setting->game_img) }}" alt="cow">
+                    @else
+                        <div class="point-circle">
+                            <span class="point">{{ $score }}</span>
+                            <span class="point-text">点</span>
+                        </div>
                     @endif
                 </div>
 
                 <div class="btn btn-2">
-                    <a href="{{route('game.page6')}}" class="">
+                    <a href="{{ route('game.page6') }}" class="">
                         {!! $setting->pg5_title2 !!}
                     </a>
                 </div>
@@ -40,13 +40,9 @@
         </div>
     </div>
 
-    <script>
+    <script type="text/javascript">
         window.onbeforeunload = function() {
-            window.setTimeout(function() {
-                    window.location = '{{route("game.page1")}}';
-                
-            }, 10000);
-            window.onbeforeunload = null; // necessary to prevent infinite loop, that kills browser 
+            return "Dude, are you sure you want to leave? Think of the kittens!";
         }
     </script>
 </body>

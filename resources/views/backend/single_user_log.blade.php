@@ -5,10 +5,32 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header row">
-              <div class="col-md-6"><h3 class="card-title">Point Log</h3></div>
+              <div class="col-md-6"><h3 class="card-title">User Log</h3></div>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
+                <div class="container mb-5">
+                    <div class="row">
+                        <div class="col-md-8 row">
+                            <div class="col-2 font-weight-bold">UserName</div>
+                            <div class="col-10"> : {{$user->name}}</div>
+                        </div>
+                        <div class="col-md-4 row text-right">
+                            <div class="col-10 font-weight-bold">Total Points</div>
+                            <div class="col-2"> : {{$user->total_points % 50}}</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 row">
+                            <div class="col-2 font-weight-bold">Email</div>
+                            <div class="col-10"> : {{$user->email}}</div>
+                        </div>
+                        <div class="col-md-4 row text-right">
+                            <div class="col-10 font-weight-bold">Total Number of Tickets</div>
+                            <div class="col-2"> : {{floor($user->total_points/50)}}</div>
+                        </div>
+                    </div>
+                </div>
               @include('backend.partials.message')
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
@@ -25,12 +47,12 @@
                     @foreach ($points as $point)
                       <tr>
                         <td>{{ $loop->index+1 }}</td>
-                        <td>{{ $point->user->email }}</td>
+                        <td>{{ $user->email }}</td>
                         <td>{{ $point->score }}</td>
                         <td>{{ $point->created_at }}</td>
                         <td>{{ ($point->score == null)? '失敗' : "成功" }}</td>
                         <td>
-                            <a href="{{route('singleUserLog',$point->user_id)}}" class="btn btn-info" title="View User Log"><i class="fas fa-eye"></i></a>
+                            <a href="{{route('singleUserLog', $point->id)}}" class="btn btn-info"><i class="fas fa-edit"></i></a>
                             {{-- <a class="btn btn-danger" href="{{ route('users.destroy', $point->id) }}" class="nav-link"
                                 onclick="event.preventDefault(); document.getElementById('delete-form-{{$point->id}}').submit();">
                                 <i class="fas fa-trash"></i>
