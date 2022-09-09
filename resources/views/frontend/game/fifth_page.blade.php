@@ -40,9 +40,12 @@
         </div>
     </div>
 
-    <script type="text/javascript">
-        window.onbeforeunload = function() {
-            return "Dude, are you sure you want to leave? Think of the kittens!";
+    <script>
+        let entry = sessionStorage.getItem("reload_count") ?? 0;
+        let entryCount = parseInt(entry) + 1;
+        sessionStorage.setItem("reload_count", entryCount)
+        if (entryCount > 1) {
+            window.location = "{{route('game.page1')}}";
         }
     </script>
 </body>
