@@ -20,13 +20,19 @@ class PlayGameController extends Controller
         $setting = GameSetting::first();
 
         $code = GameOTP::where('status', '=', '1')->get('otp');
-        if (!$code->isEmpty()) {
-            $otp = $code[0]->otp;
-            return view('frontend.game.first_page', ['otp' => $otp, 'setting' => $setting]);
-        } else {
-            $otp = 'Error';
-            return view('frontend.game.first_page', ['otp' => $otp, 'setting' => $setting]);
+        $track = GameTrack::where('user_id', '=', Auth::id())->get()->last();
+        if($track->track == 1){
+            return view('frontend.game.first_page', ['message' => '過去24時間以内にプレイしたため、現在プレイできません。 後でお試しください', 'setting' => $setting, 'otp' => '']);
+        }else{
+            if (!$code->isEmpty()) {
+                $otp = $code[0]->otp;
+                return view('frontend.game.first_page', ['otp' => $otp, 'setting' => $setting]);
+            } else {
+                $otp = 'Error';
+                return view('frontend.game.first_page', ['otp' => $otp, 'setting' => $setting]);
+            }
         }
+        
     }
 
     public function page2()
@@ -60,18 +66,12 @@ class PlayGameController extends Controller
         $setting = GameSetting::first();
 
         if (Auth::check()) {
-            $lastPlayed = GameTrack::where([['track', '=', '0'], ['user_id', '=', Auth::id()]])->get()->last();
-            if (!empty($lastPlayed)) {
-                $otpCheck = GameTrack::where([['otp_mached', '=', '1'], ['user_id', '=', Auth::id()]])->get()->last();
-                if (empty($otpCheck)) {
-                    $code = GameOTP::where('status', '=', '1')->get('otp');
-                    if (!$code->isEmpty()) {
-                        $otp = $code[0]->otp;
-                        return view('frontend.game.first_page', ['otp' => $otp, 'setting' => $setting]);
-                    } else {
+            $lastPlayed = GameTrack::where('user_id', '=', Auth::id())->latest()->first();
+            if ($lastPlayed->track == 0) {
+                $otpCheck = GameTrack::where('user_id', '=', Auth::id())->latest()->first();
+                if ($otpCheck->otp_mached != 1) {
                         $otp = 'Error';
                         return view('frontend.game.first_page', ['otp' => $otp, 'setting' => $setting]);
-                    }
                 } else {
                     $Sec_Max = $setting->probablity_1 + $setting->probablity_2;
                     $Third_Max = $Sec_Max + $setting->probablity_3;
@@ -89,32 +89,32 @@ class PlayGameController extends Controller
                         }
                     }
                     
-                    $track = GameTrack::find(Auth::id());
-                    $track->user_id = Auth::id();
+                    $track = GameTrack::find(Auth::id())->get()->last();
                     $track->score = $score;
                     $track->track = 1;
                     $trackTime = Carbon::now();
                     $track->trackTime = $trackTime->toDateTimeString();
                     $track->save();
 
-
                     $points = GameTrack::selectRaw('SUM(score) as total_points')->where('user_id', '=', Auth::id())->get();
                     $totalPoints = User::where('id', '=', Auth::id())->first();
-                    $previousPint = $points[0]->total_points;
-                    $newPoint = $totalPoints->total_points = $points[0]->total_points;
+                    $previousPoint = $totalPoints->tickets;
+                    $newPoint = floor($points[0]->total_points / 50);
+                    $totalPoints->total_points = $points[0]->total_points % 50;
+                    $totalPoints->tickets = floor($points[0]->total_points / 50);
                     $totalPoints->save();
-                    if (floor($previousPint / 50) < floor($newPoint / 50)) {
+                    if ($previousPoint < $newPoint) {
                         $email = [
                             'total_points' => $totalPoints->total_points,
-                            'tickets' => $newPoint / 50
+                            'tickets' => $totalPoints->tickets
                         ];
                         Mail::to($totalPoints->email)->send(new notifyTicket($email));
                     }
 
-                    return view('frontend.game.fifth_page', ['score' => $score, 'setting' => $setting]);
+                    return view('frontend.game.fifth_page', ['score' => $score, 'setting' => $setting, 'track' => 0]);
                 }
             } else {
-                return view('frontend.game.fifth_page', ['message' => '過去24時間以内にプレイしたため、現在プレイできません。 後でお試しください', 'setting' => $setting]);
+                return view('frontend.game.fifth_page', ['message' => '過去24時間以内にプレイしたため、現在プレイできません。 後でお試しください', 'setting' => $setting, 'track' => 1]);
             }
         } else {
             return view('frontend.game.fourth_page', ['setting' => $setting]);

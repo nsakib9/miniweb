@@ -20,6 +20,9 @@
                 </div>
                 <h4 class="title">{{$setting->page1_body_title}}</h4>
                 <div class="input-box">
+                    @if (!empty($message))
+                        <div class="title"><span style="color:red;"> {{ $message }} </span></div>
+                    @else
                         <div class="input-field">
                             <input type="text" id="1" pattern="[0-9]*" inputtype="numeric" maxlength=1 required>
                             <input type="text" id="2" pattern="[0-9]*" inputtype="numeric" maxlength=1 required>
@@ -30,6 +33,7 @@
                         <div class="submit">
                             <button type="" onclick="matchCode()">{{$setting->page1_button_title}}</button>
                         </div>
+                    @endif
                 </div>
             </div>
         </div>

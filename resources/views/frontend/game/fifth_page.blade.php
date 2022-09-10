@@ -22,7 +22,7 @@
                 <div class="point-box">
                     @if (!empty($message))
                         <div class="title"><span style="color:red;"> {{ $message }} </span></div>
-                        <img src="{{ asset('/storage/settings/' . $setting->game_img) }}" alt="cow">
+                        <img src="{{ asset('/storage/settings/' . $setting->game_img) }}" alt="cow" width="20%">
                     @else
                         <div class="point-circle">
                             <span class="point">{{ $score }}</span>
@@ -44,9 +44,14 @@
         let entry = sessionStorage.getItem("reload_count") ?? 0;
         let entryCount = parseInt(entry) + 1;
         sessionStorage.setItem("reload_count", entryCount)
-        if (entryCount > 1) {
-            window.location = "{{route('game.page1')}}";
+
+        let track = {{'track'}}
+        if(track == 0){
+           if (entryCount > 1) {
+                window.location = "{{route('game.page1')}}";
+            } 
         }
+        
     </script>
 </body>
 
