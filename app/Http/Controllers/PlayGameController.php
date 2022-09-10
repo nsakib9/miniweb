@@ -21,8 +21,18 @@ class PlayGameController extends Controller
 
         $code = GameOTP::where('status', '=', '1')->get('otp');
         $track = GameTrack::where('user_id', '=', Auth::id())->get()->last();
-        if($track->track == 1){
-            return view('frontend.game.first_page', ['message' => '過去24時間以内にプレイしたため、現在プレイできません。 後でお試しください', 'setting' => $setting, 'otp' => '']);
+        if(!empty($track)){
+            if($track->track == 1){
+                return view('frontend.game.first_page', ['message' => '過去24時間以内にプレイしたため、現在プレイできません。 後でお試しください', 'setting' => $setting, 'otp' => '']);
+            }else{
+                if (!$code->isEmpty()) {
+                    $otp = $code[0]->otp;
+                    return view('frontend.game.first_page', ['otp' => $otp, 'setting' => $setting]);
+                } else {
+                    $otp = 'Error';
+                    return view('frontend.game.first_page', ['otp' => $otp, 'setting' => $setting]);
+                }
+            }
         }else{
             if (!$code->isEmpty()) {
                 $otp = $code[0]->otp;
@@ -32,6 +42,7 @@ class PlayGameController extends Controller
                 return view('frontend.game.first_page', ['otp' => $otp, 'setting' => $setting]);
             }
         }
+        
         
     }
 
