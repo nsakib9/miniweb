@@ -31,4 +31,8 @@ class HomeController extends Controller
         $auditLog = Auth::user()->audits()->where('auditable_type',User::class)->get();
         return view('backend.users.point.pointlog',['auditLog'=>$auditLog]);
     }
+    public function log()
+    {
+        return view('backend.ticket_exchange');
+    }
 }
