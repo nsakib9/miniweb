@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\GameTrack;
 use Auth;
 class HomeController extends Controller
 {
@@ -28,7 +29,11 @@ class HomeController extends Controller
     }
     public function pointlog()
     {
-        $auditLog = Auth::user()->audits()->where('auditable_type',User::class)->get();
+        $auditLog = \OwenIt\Auditing\Models\Audit::with('user')
+                ->where('auditable_type',GameTrack::class)
+                ->where('user_id',Auth::user()->id)
+                ->orderBy('created_at', 'desc')
+                ->get();
         return view('backend.users.point.pointlog',['auditLog'=>$auditLog]);
     }
     public function log()

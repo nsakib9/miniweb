@@ -5,9 +5,10 @@ namespace App\Models;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
-class GameTrack extends Model
+use OwenIt\Auditing\Contracts\Auditable;
+class GameTrack extends Model implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     use HasFactory;
 
     public function user(){
