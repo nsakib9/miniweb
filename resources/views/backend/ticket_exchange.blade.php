@@ -1,6 +1,8 @@
 @extends('backend.layout.app')
 @section('title', 'user Management')
 @section('content')
+
+    <div style="display: none">
     <section class="content">
         <div class="container-fluid">
 
@@ -102,6 +104,7 @@
             <!-- /.modal -->
         </div><!-- /.container-fluid -->
     </section>
+    </div>
 
     <section>
         <div class="w_35x mx-auto">
@@ -144,8 +147,9 @@
                             @endif
                         </span>
                     </p>
-                    <button class="bbtn_2">りがとうご</button>
+                    <button class="bbtn_2" data-toggle="modal" data-target="#modal-default2">引換券</button>
                 </div>
+                @include('backend.partials.message')
             </div>
 
             <div>
@@ -161,7 +165,7 @@
                                     </tr>
                                 @elseif($key == 'ticket')
                                     <tr>
-                                        <td class="px-3">Exchange {{ $newVal }} Tickets </td>
+                                        <td class="px-3">交換 {{ $newVal }} 切符売場 </td>
                                         <td class="px-3 text-center">{{ $audit->updated_at->format('Y/m/d') }}</td>
                                     </tr>
                                 @endif
@@ -170,6 +174,44 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+
+        <div class="modal fade" id="modal-default2">
+            <div class="modal-dialog">
+                <form action="{{ route('ticket.exchange') }}" method="POST">
+                    @csrf
+                    <div class="modal-content border-0 w_35x mx-auto">
+                        <div class="bg-dark text-white p-3">
+                            <div class="px-3 my-3">
+                                <p>ユーザー名</p>
+                                <h4>{{ Auth::user()->name }}</h4>
+                            </div>
+            
+                            <div class="border px-3 d-flex align-items-center justify-content-between mb-3">
+                                <p class="my-2">
+                                    開催チケット  
+                                    <span class="fz-3x">
+                                        @if (Auth::user()->tickets > 0)
+                                            {{ Auth::user()->tickets }}
+                                        @else
+                                            0
+                                        @endif
+                                    </span>
+                                </p>
+                            </div>
+    
+                            <div class="d-flex justify-content-between">
+                                <input type="number" name="exchangeTicket" class="form-control w-50">
+                                <button type="submit" class="bbtn_2">交換</button>
+                            </div>
+
+                           
+                        </div>
+                    </div>
+                </form>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
         </div>
     </section>
 @endsection

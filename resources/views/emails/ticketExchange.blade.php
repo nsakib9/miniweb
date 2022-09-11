@@ -6,10 +6,11 @@
 </head>
 
 <body>
-    <h1>TICKET HAS BEEN EXCHANGED.</h1>
-    <p>Exchange Ticket : {{ $details['tickets'] }}</p>
+    <h1>TICKET交換が行われました.</h1>
+    <p>交換TICKET : {{ $details['tickets'] }} 枚</p>
 
-    <p>Thank you</p>
+    <p>こちらに 画面 スタッフにご提示ください</p>
+    <p>枚数 に応じた、サービス・商品を交換できます</p>
 </body>
 
 </html>

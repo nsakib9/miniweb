@@ -1,12 +1,23 @@
-<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+<nav class="main-header navbar navbar-expand navbar-white navbar-light" @role('user')style="margin-left:0" @endrole>
     <!-- Left navbar links -->
     <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-        </li>
+        @role('admin')
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            </li>
+        @endrole
         <li class="nav-item d-none d-sm-inline-block">
             <a href="{{ url('/') }}" class="nav-link">Home</a>
         </li>
+        @role('user')
+            {{-- <li class="nav-item d-none d-sm-inline-block">
+                <a href="{{ route('point.log', [encrypt(Auth::user()->id)]) }}" class="nav-link"> <i
+                        class="nav-icon fas fa-solid fa-coins"></i> Points Log</a>
+            </li> --}}
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="{{ route('ticket.log') }}" class="nav-link"> <i class="nav-icon fas fa-tachometer-alt"></i> Log</a>
+            </li>
+        @endrole
     </ul>
 
     <!-- Right navbar links -->
@@ -19,8 +30,8 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 {{-- <a class="dropdown-item" href="{{ url('/users') }}">
                     Users
-                </a> 
-                <div class="dropdown-divider"></div>--}}
+                </a>
+                <div class="dropdown-divider"></div> --}}
                 <a class="dropdown-item" href="{{ route('logout') }}"
                     onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
