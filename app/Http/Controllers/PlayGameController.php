@@ -100,7 +100,7 @@ class PlayGameController extends Controller
                         }
                     }
                     
-                    $track = GameTrack::find(Auth::id())->get()->last();
+                    $track = GameTrack::where('user_id', '=', Auth::id())->get()->last();
                     $track->score = $score;
                     $track->track = 1;
                     $trackTime = Carbon::now();
