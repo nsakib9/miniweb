@@ -32,6 +32,7 @@ return array(
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
     'App\\Mail\\notifyTicket' => $baseDir . '/app/Mail/notifyTicket.php',
+    'App\\Mail\\ticketExchange' => $baseDir . '/app/Mail/ticketExchange.php',
     'App\\Models\\ExchangeTicket' => $baseDir . '/app/Models/ExchangeTicket.php',
     'App\\Models\\GameOTP' => $baseDir . '/app/Models/GameOTP.php',
     'App\\Models\\GameSetting' => $baseDir . '/app/Models/GameSetting.php',

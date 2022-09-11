@@ -548,6 +548,7 @@ class ComposerStaticInitd285ab5c55ac424c77603fb5083e6306
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Mail\\notifyTicket' => __DIR__ . '/../..' . '/app/Mail/notifyTicket.php',
+        'App\\Mail\\ticketExchange' => __DIR__ . '/../..' . '/app/Mail/ticketExchange.php',
         'App\\Models\\ExchangeTicket' => __DIR__ . '/../..' . '/app/Models/ExchangeTicket.php',
         'App\\Models\\GameOTP' => __DIR__ . '/../..' . '/app/Models/GameOTP.php',
         'App\\Models\\GameSetting' => __DIR__ . '/../..' . '/app/Models/GameSetting.php',
