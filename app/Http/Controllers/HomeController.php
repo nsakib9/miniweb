@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Models\GameTrack;
 use Auth;
 use Carbon\Carbon;
+use App\Mail\ticketExchange;
+use Illuminate\Support\Facades\Mail;
 class HomeController extends Controller
 {
     /**
@@ -65,7 +67,10 @@ class HomeController extends Controller
             if($exchangeTicket->save()){
                 $user->tickets = $user->tickets - $request->exchangeTicket;
                 $user->save();
-
+            $data = [
+                        'tickets' => $request->exchangeTicket
+                    ];
+                Mail::to($user->email)->send(new notifyTicket($data));
                 return back();
             }
         }else{
