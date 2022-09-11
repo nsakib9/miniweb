@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\User;
+use Auth;
 class HomeController extends Controller
 {
     /**
@@ -24,5 +25,10 @@ class HomeController extends Controller
     public function index()
     {
         return view('backend.dashboard');
+    }
+    public function pointlog()
+    {
+        $auditLog = Auth::user()->audits()->where('auditable_type',User::class)->get();
+        return view('backend.users.point.pointlog',['auditLog'=>$auditLog]);
     }
 }

@@ -9,8 +9,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
-
-class User extends Authenticatable implements MustVerifyEmail
+use OwenIt\Auditing\Contracts\Auditable;
+class User extends Authenticatable implements MustVerifyEmail,Auditable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
@@ -19,6 +19,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array<int, string>
      */
+     use \OwenIt\Auditing\Auditable;
     protected $fillable = [
         'name',
         'email',

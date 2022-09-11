@@ -48,6 +48,7 @@ Route::group(['prefix' => 'game'],  function () {
 
 Route::group(['middleware' => ['verified', 'auth']],  function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+    Route::get('/point-log', [HomeController::class, 'pointlog'])->name('point.log');
 
     // Admin Routes
     Route::group(['prefix' => 'admin', 'middleware' => 'role:admin'],  function () {

@@ -42,8 +42,8 @@ class PlayGameController extends Controller
                 return view('frontend.game.first_page', ['otp' => $otp, 'setting' => $setting]);
             }
         }
-        
-        
+
+
     }
 
     public function page2()
@@ -99,7 +99,7 @@ class PlayGameController extends Controller
                             $score = $k;
                         }
                     }
-                    
+
                     $track = GameTrack::where('user_id', '=', Auth::id())->get()->last();
                     $track->score = $score;
                     $track->track = 1;

@@ -1,8 +1,9 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-        <img src="{{asset('assets/frontend/img/cow.png')}}" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">{{@config('app.name')}}</span>
+        <img src="{{ asset('assets/frontend/img/cow.png') }}" alt="Logo" class="brand-image img-circle elevation-3"
+            style="opacity: .8">
+        <span class="brand-text font-weight-light">{{ @config('app.name') }}</span>
     </a>
 
     <!-- Sidebar -->
@@ -14,7 +15,7 @@
                     alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">{{auth()->user()->name}}</a>
+                <a href="#" class="d-block">{{ auth()->user()->name }}</a>
             </div>
         </div>
 
@@ -24,18 +25,31 @@
                 data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-               
+
                 <li class="nav-item">
-                    <a href="{{route('dashboard')}}" class="nav-link {{ Request::is('dashboard') ? 'active' : null }}">
+                    <a href="{{ route('dashboard') }}"
+                        class="nav-link {{ Request::is('dashboard') ? 'active' : null }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
                         </p>
                     </a>
                 </li>
+                @role('user')
+                    <li class="nav-item">
+                        <a href="{{ route('point.log') }}"
+                            class="nav-link {{ Request::is('point-log') ? 'active' : null }}">
+                            <i class="nav-icon fas fa-solid fa-coins"></i>
+                            <p>
+                                Points Log
+                            </p>
+                        </a>
+                    </li>
+                @endrole
                 @role('admin')
                     <li class="nav-item">
-                        <a href="{{route('roles.index')}}" class="nav-link {{ request()->is('admin/roles*') ? 'active' : null }}">
+                        <a href="{{ route('roles.index') }}"
+                            class="nav-link {{ request()->is('admin/roles*') ? 'active' : null }}">
                             <i class="nav-icon fas fa-tasks"></i>
                             <p>
                                 Role Management
@@ -43,7 +57,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('users.index')}}" class="nav-link {{ request()->is('admin/users*') ? 'active' : null }}">
+                        <a href="{{ route('users.index') }}"
+                            class="nav-link {{ request()->is('admin/users*') ? 'active' : null }}">
                             <i class="nav-icon fas fa-user"></i>
                             <p>
                                 User Management
@@ -51,7 +66,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('pointLog')}}" class="nav-link {{ request()->is('admin/point-log') ? 'active' : null }}">
+                        <a href="{{ route('pointLog') }}"
+                            class="nav-link {{ request()->is('admin/point-log') ? 'active' : null }}">
                             <i class="nav-icon fas fa-list"></i>
                             <p>
                                 Point Log
@@ -68,27 +84,29 @@
                     </li> --}}
                     <li class="nav-item {{ request()->is('/admin/game*') ? 'menu-open' : null }}">
                         <a href="#" class="nav-link {{ request()->is('/admin/game*') ? 'active' : null }}">
-                          <i class="nav-icon fas fa-briefcase"></i>
-                          <p>
-                            Game Controls
-                            <i class="right fas fa-angle-left"></i>
-                          </p>
+                            <i class="nav-icon fas fa-briefcase"></i>
+                            <p>
+                                Game Controls
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
                         </a>
                         <ul class="nav nav-treeview">
-                          <li class="nav-item">
-                            <a href="{{route('show.otp')}}" class="nav-link {{ request()->is('/admin/game/otp') ? 'active' : null }}">
-                              <i class="fas fa-list nav-icon"></i>
-                              <p>OTP Configuration</p>
-                            </a>
-                          </li>
-                          <li class="nav-item">
-                            <a href="{{route('show.settings')}}" class="nav-link {{ request()->is('/admin/game/settings') ? 'active' : null }}">
-                              <i class="fas fa-list nav-icon"></i>
-                              <p>Settings</p>
-                            </a>
-                          </li>
+                            <li class="nav-item">
+                                <a href="{{ route('show.otp') }}"
+                                    class="nav-link {{ request()->is('/admin/game/otp') ? 'active' : null }}">
+                                    <i class="fas fa-list nav-icon"></i>
+                                    <p>OTP Configuration</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('show.settings') }}"
+                                    class="nav-link {{ request()->is('/admin/game/settings') ? 'active' : null }}">
+                                    <i class="fas fa-list nav-icon"></i>
+                                    <p>Settings</p>
+                                </a>
+                            </li>
                         </ul>
-                      </li>
+                    </li>
                 @endrole
                 <li class="nav-item">
                     <a href="{{ route('logout') }}" class="nav-link"
