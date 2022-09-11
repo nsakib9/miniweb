@@ -48,7 +48,7 @@ Route::group(['prefix' => 'game'],  function () {
 
 Route::group(['middleware' => ['verified', 'auth']],  function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
-    Route::get('/point-log', [HomeController::class, 'pointlog'])->name('point.log');
+    Route::get('/point-log/{user_id}', [HomeController::class, 'pointlog'])->name('point.log');
     Route::get('/log', [HomeController::class, 'log'])->name('ticket.log');
     Route::post('/ticket/exchange', [HomeController::class, 'exchangeTicket'])->name('ticket.exchange');
 

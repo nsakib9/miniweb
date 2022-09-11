@@ -37,7 +37,7 @@
                 </li>
                 @role('user')
                     <li class="nav-item">
-                        <a href="{{ route('point.log') }}"
+                        <a href="{{ route('point.log', [encrypt(Auth::user()->id)]) }}"
                             class="nav-link {{ Request::is('point-log') ? 'active' : null }}">
                             <i class="nav-icon fas fa-solid fa-coins"></i>
                             <p>

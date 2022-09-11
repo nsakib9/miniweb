@@ -56,7 +56,7 @@
                                         <td>{{ $newVal }}pt</td>
                                         <td>{{ $audit->updated_at->format('Y/m/d') }}</td>
                                     </tr>
-                                @elseif($key == 'tickets')
+                                @elseif($key == 'ticket')
                                     <tr>
                                         <td>Exchange {{ $newVal }} Tickets </td>
                                         <td>{{ $audit->updated_at->format('Y/m/d') }}</td>

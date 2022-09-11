@@ -30,13 +30,14 @@ class HomeController extends Controller
         return view('backend.dashboard');
     }
 
-    public function pointlog()
+    public function pointlog($user_id)
     {
+        $user_id = decrypt($user_id);
         $auditLog = \OwenIt\Auditing\Models\Audit::with('user')
                 ->where('auditable_type',GameTrack::class)
                 ->orWhere('auditable_type',ExchangeTicket::class)
-                ->where('user_id',Auth::user()->id)
-                ->where('created_at',Carbon::today())
+                ->where('user_id',$user_id)
+                ->where('created_at','>=', date('Y-m-d').' 00:00:00')
                 ->orderBy('created_at', 'desc')
                 ->get();
         return view('backend.users.point.pointlog',['auditLog'=>$auditLog]);
@@ -48,7 +49,7 @@ class HomeController extends Controller
                 ->where('auditable_type',GameTrack::class)
                 ->orWhere('auditable_type',ExchangeTicket::class)
                 ->where('user_id',Auth::user()->id)
-                ->where('created_at',Carbon::today())
+                ->where('created_at','>=', date('Y-m-d').' 00:00:00')
                 ->orderBy('created_at', 'desc')
                 ->get();
         return view('backend.ticket_exchange',['auditLog'=>$auditLog]);
