@@ -28,6 +28,6 @@ class ticketExchange extends Mailable
      */
     public function build()
     {
-        return $this->subject('LAMPPOINT CLUB')->view('emails.ticketExchange');
+        return $this->subject('LAMPポイントクラブです')->view('emails.ticketExchange');
     }
 }
