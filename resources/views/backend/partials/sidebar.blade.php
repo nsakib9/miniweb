@@ -33,6 +33,14 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{route('ticket.log')}}" class="nav-link {{ Request::is('log') ? 'active' : null }}">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Log
+                        </p>
+                    </a>
+                </li>
                 @role('admin')
                     <li class="nav-item">
                         <a href="{{route('roles.index')}}" class="nav-link {{ request()->is('admin/roles*') ? 'active' : null }}">

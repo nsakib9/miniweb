@@ -25,4 +25,9 @@ class HomeController extends Controller
     {
         return view('backend.dashboard');
     }
+
+    public function log()
+    {
+        return view('backend.ticket_exchange');
+    }
 }
