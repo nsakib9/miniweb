@@ -102,6 +102,76 @@
             <!-- /.modal -->
         </div><!-- /.container-fluid -->
     </section>
+
+    <section>
+        <div class="w_35x mx-auto">
+            <div class="bg-dark text-white p-3">
+                <h4 class="px-3">{{ env('APP_NAME') }}</h4>
+
+                <div class="border px-3 my-3">
+                    <p>ユーザー名</p>
+                    <h4>{{ Auth::user()->name }}</h4>
+                </div>
+
+                <h3 class="px-3">
+                    @if (Auth::user()->total_points > 0)
+                        {{ Auth::user()->total_points }}
+                    @else
+                        0
+                    @endif 
+                    <sup class="fz-1-5x">/50</sup>
+                    <span class="ml-3">Pt</span>
+                </h3>
+
+                <p class="px-3">
+                        @if (Auth::user()->total_points > 0)
+                            <span class="fz-3x">
+                                {{ 50 - Auth::user()->total_points }}
+                            </span>
+                        @else
+                            <span class="fz-3x">0</span>
+                        @endif Ptでチケットをゲット
+                </p>
+
+                <div class="border px-3 d-flex align-items-center justify-content-between">
+                    <p>
+                        開催チケット  
+                        <span class="fz-3x">
+                            @if (Auth::user()->tickets > 0)
+                                {{ Auth::user()->tickets }}
+                            @else
+                                0
+                            @endif
+                        </span>
+                    </p>
+                    <button class="bbtn_2">りがとうご</button>
+                </div>
+            </div>
+
+            <div>
+                <p class="px-3 my-2">最近</p>
+                <table class="table">
+                    <tbody>
+                        @foreach ($auditLog as $audit)
+                            @foreach ($audit->new_values as $key => $newVal)
+                                @if ($key == 'score')
+                                    <tr>
+                                        <td class="px-3">{{ $newVal }}pt</td>
+                                        <td class="px-3 text-center">{{ $audit->updated_at->format('Y/m/d') }}</td>
+                                    </tr>
+                                @elseif($key == 'ticket')
+                                    <tr>
+                                        <td class="px-3">Exchange {{ $newVal }} Tickets </td>
+                                        <td class="px-3 text-center">{{ $audit->updated_at->format('Y/m/d') }}</td>
+                                    </tr>
+                                @endif
+                            @endforeach
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
 @endsection
 
 @push('custom_script')

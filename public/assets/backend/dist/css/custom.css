@@ -1,0 +1,16 @@
+.w_35x {
+    max-width: 350px;
+}
+.fz-1-5x{
+    font-size: 15px;
+}
+.fz-3x {
+    font-size: 30px;
+}
+.bbtn_2 {
+    background-color: #FFA92A;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 4px;
+}
