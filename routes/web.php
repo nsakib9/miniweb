@@ -73,6 +73,8 @@ Route::group(['middleware' => ['verified', 'auth']],  function () {
         // Point Log
         Route::get('/point-log', [GameController::class, 'pointLog'])->name('pointLog');
         Route::get('/user-log/mw-uid={id}', [GameController::class, 'singleUserLog'])->name('singleUserLog');
+        Route::get('/user-log/scoreid={id}', [GameController::class, 'editScore'])->name('score.edit');
+        Route::put('/user-log/updatescoreid={id}', [GameController::class, 'updateScore'])->name('score.update');
 
         // All Users Log
         Route::get('/users-log', [GameController::class, 'usersLog'])->name('usersLog');

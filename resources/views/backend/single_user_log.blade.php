@@ -52,7 +52,7 @@
                         <td>{{ $point->created_at }}</td>
                         <td>{{ ($point->score == null)? '失敗' : "成功" }}</td>
                         <td>
-                            {{-- <a href="{{route('score.edit', $point->id)}}" class="btn btn-info"><i class="fas fa-edit"></i></a> --}}
+                            <a href="{{route('score.edit', $point->id)}}" class="btn btn-info"><i class="fas fa-edit"></i></a>
                             {{-- <a class="btn btn-danger" href="{{ route('users.destroy', $point->id) }}" class="nav-link"
                                 onclick="event.preventDefault(); document.getElementById('delete-form-{{$point->id}}').submit();">
                                 <i class="fas fa-trash"></i>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\notifyTicket;
 use App\Models\GameOTP;
 use App\Models\GameSetting;
 use App\Models\GameTrack;
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class GameController extends Controller
@@ -148,7 +150,6 @@ class GameController extends Controller
             $image_name = $this->i . '-' . time() . '.' . $image->getClientOriginalExtension();
             $path = $image->storeAs('public/settings/', $image_name);
             return $image_name;
-            
         } else {
             if ($image_type == 1) {
                 return $settings->logo;
@@ -173,6 +174,37 @@ class GameController extends Controller
         $user = User::find($id);
 
         return view('backend.single_user_log', ['points' => $points, 'user' => $user]);
+    }
+
+    public function editScore($id)
+    {
+        $score = GameTrack::find($id);
+        return view('backend.score_edit', ['score' => $score]);
+    }
+
+    public function updateScore(Request $request, $id)
+    {
+        $score = GameTrack::find($id);
+        $score->score = $request->score;
+        $score->save();
+
+        $points = GameTrack::selectRaw('SUM(score) as total_points')->where('user_id', '=', Auth::id())->get();
+        $totalPoints = User::where('id', '=', Auth::id())->first();
+        $previousPoint = $totalPoints->tickets;
+        $newPoint = floor($points[0]->total_points / 50);
+        $totalPoints->total_points = $points[0]->total_points % 50;
+        $totalPoints->tickets = floor($points[0]->total_points / 50);
+        $totalPoints->save();
+        if ($previousPoint < $newPoint) {
+            $email = [
+                'total_points' => $totalPoints->total_points,
+                'tickets' => $totalPoints->tickets
+            ];
+            Mail::to($totalPoints->email)->send(new notifyTicket($email));
+        }
+
+
+        return redirect('/admin/user-log/mw-uid='.$score->user_id);
     }
 
     public function usersLog()
