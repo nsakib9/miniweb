@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Http;
 
 class UsersController extends Controller
 {
@@ -60,6 +61,8 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
+        
         // Validation
         $request->validate([
             'name' => 'required|max:100',

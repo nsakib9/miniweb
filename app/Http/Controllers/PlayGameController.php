@@ -99,7 +99,7 @@ class PlayGameController extends Controller
                             }
                         }
 
-                        $track = GameTrack::where('user_id', '=', Auth::id())->get()->last();
+                        $track = GameTrack::where('user_id', '=', Auth::id())->latest()->first();
                         $track->score = $score;
                         $track->track = 1;
                         $trackTime = Carbon::now();
@@ -121,6 +121,7 @@ class PlayGameController extends Controller
                             Mail::to($totalPoints->email)->send(new notifyTicket($email));
                         }
 
+                        // return response()->json(['score' => $score, 'setting' => $setting, 'track' => 0]);
                         return view('frontend.game.fifth_page', ['score' => $score, 'setting' => $setting, 'track' => 0]);
                     }
                 } else {
@@ -132,6 +133,16 @@ class PlayGameController extends Controller
         } else {
             return view('frontend.game.fourth_page', ['setting' => $setting]);
         }
+    }
+
+    public function wpScoreApi(){
+        return view('backend.wp_scores');
+    }
+
+    public function getScore(){
+        $score = GameTrack::with(['user'])->where('user_id','=', 1)->get();
+        
+        return response()->json(['score'=>$score, 'id'=>1]);
     }
 
     public function page6()

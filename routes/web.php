@@ -44,6 +44,7 @@ Route::group(['prefix' => 'game'],  function () {
     Route::get('/page4', [PlayGameController::class, 'page4'])->name('game.page4');
     Route::get('/page5', [PlayGameController::class, 'page5'])->name('game.page5');
     Route::get('/page6', [PlayGameController::class, 'page6'])->name('game.page6');
+    Route::get('/wp-scores', [PlayGameController::class, 'wpScoreApi'])->name('wpScoreApi');
 });
 
 Route::group(['middleware' => ['verified', 'auth']],  function () {

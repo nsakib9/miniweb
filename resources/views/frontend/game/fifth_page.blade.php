@@ -25,7 +25,7 @@
                         <img src="{{ asset('/storage/settings/' . $setting->game_img) }}" alt="cow" width="20%">
                     @else
                         <div class="point-circle">
-                            <span class="point">{{ $score }}</span>
+                            <span class="point">{{$score}}</span>
                             <span class="point-text">点</span>
                         </div>
                     @endif

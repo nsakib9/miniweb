@@ -10,6 +10,7 @@ use Auth;
 use Carbon\Carbon;
 use App\Mail\ticketExchange;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Http;
 class HomeController extends Controller
 {
     /**
@@ -29,6 +30,16 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // $response = Http::get('https://ap-lamp.com/wp-json/wp/v2/users');
+        // $request = $response->json();
+        // dd($request);
+        // foreach($request as $req){
+        //     $user = new User();
+        //     $user->id = $req['id'];
+        //     $user->name =$req['name'];
+        //     $user->email =$req['email'];
+        //     $user->save();
+        // }
         return view('backend.dashboard');
     }
 
