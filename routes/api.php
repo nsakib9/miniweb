@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PlayGameController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,3 +17,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/score', [PlayGameController::class, 'getScore']);
+Route::post('/auth/token', [UsersController::class, 'loginApi']);

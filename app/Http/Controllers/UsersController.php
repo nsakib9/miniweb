@@ -14,6 +14,18 @@ use Illuminate\Support\Facades\Http;
 
 class UsersController extends Controller
 {
+    public function loginApi(Request $request){
+        
+        $user = User::where('email', '=', $request->email)->first();
+        if(!empty($user)){
+            $token = $user->createToken('Token Name')->accessToken;
+            return response()->json(['message' => 'You have Successfully logged in', 'token'=> $token, 'status' => 'ok']);
+        }else{
+            return response()->json(['message' => 'Failed', 'status' => 'nok']);
+        }
+        
+    }
+
     public function login(Request $request)
     {
         $request->validate([
