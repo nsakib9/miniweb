@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use App\Mail\ticketExchange;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Http;
+
 class HomeController extends Controller
 {
     /**
@@ -28,7 +29,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
         // $response = Http::get('https://ap-lamp.com/wp-json/wp/v2/users');
         // $request = $response->json();
@@ -40,6 +41,8 @@ class HomeController extends Controller
         //     $user->email =$req['email'];
         //     $user->save();
         // }
+        
+
         return view('backend.dashboard');
     }
 
@@ -47,49 +50,47 @@ class HomeController extends Controller
     {
         $user_id = decrypt($user_id);
         $auditLog = \OwenIt\Auditing\Models\Audit::with('user')
-                ->where('auditable_type',GameTrack::class)
-                ->orWhere('auditable_type',ExchangeTicket::class)
-                ->where('user_id',$user_id)
-                ->where('created_at','>=', date('Y-m-d').' 00:00:00')
-                ->orderBy('created_at', 'desc')
-                ->get();
-        return view('backend.users.point.pointlog',['auditLog'=>$auditLog]);
+            ->where('auditable_type', GameTrack::class)
+            ->orWhere('auditable_type', ExchangeTicket::class)
+            ->where('user_id', $user_id)
+            ->where('created_at', '>=', date('Y-m-d') . ' 00:00:00')
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('backend.users.point.pointlog', ['auditLog' => $auditLog]);
     }
 
     public function log()
     {
         $auditLog = \OwenIt\Auditing\Models\Audit::with('user')
-                ->where('auditable_type',GameTrack::class)
-                ->orWhere('auditable_type',ExchangeTicket::class)
-                ->where('user_id',Auth::user()->id)
-                ->where('created_at','>=', date('Y-m-d').' 00:00:00')
-                ->orderBy('created_at', 'desc')
-                ->get();
-        return view('backend.ticket_exchange',['auditLog'=>$auditLog]);
+            ->where('auditable_type', GameTrack::class)
+            ->orWhere('auditable_type', ExchangeTicket::class)
+            ->where('user_id', Auth::user()->id)
+            ->where('created_at', '>=', date('Y-m-d') . ' 00:00:00')
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('backend.ticket_exchange', ['auditLog' => $auditLog]);
     }
 
-    public function exchangeTicket(Request $request){
+    public function exchangeTicket(Request $request)
+    {
 
         $exchangeTicket = new ExchangeTicket();
         $user = User::find(Auth::id());
 
-        if($request->exchangeTicket <= $user->tickets){
+        if ($request->exchangeTicket <= $user->tickets) {
             $exchangeTicket->ticket = $request->exchangeTicket;
-            if($exchangeTicket->save()){
+            if ($exchangeTicket->save()) {
                 $user->tickets = $user->tickets - $request->exchangeTicket;
                 $user->save();
-            $data = [
-                        'tickets' => $request->exchangeTicket
-                    ];
+                $data = [
+                    'tickets' => $request->exchangeTicket
+                ];
                 Mail::to($user->email)->send(new notifyTicket($data));
                 return back();
             }
-        }else{
+        } else {
             session()->flash('error', 'You do not have sufficient tickets');
             return back();
         }
-
-
     }
-
 }

@@ -16,7 +16,8 @@ class UsersController extends Controller
 {
     public function loginApi(Request $request){
         
-        $user = User::where('email', '=', $request->email)->first();
+        $user = User::where('email', $request->email)->first();
+        // dd($user);
         if(!empty($user)){
             $token = $user->createToken('Token Name')->accessToken;
             return response()->json(['message' => 'You have Successfully logged in', 'token'=> $token, 'status' => 'ok']);
