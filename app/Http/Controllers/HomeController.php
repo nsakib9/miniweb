@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\notifyTicket;
 use App\Models\ExchangeTicket;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -32,7 +33,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $response = Http::get('https://ap-lamp.com/wp-json/wp/v2/users');
-        $request = $response->json();
+        $request = $response->user_emjson();
         dd($request);
         foreach($request as $req){
             $user = new User();
