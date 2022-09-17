@@ -16,7 +16,6 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
-        // dd($request->getPathInfo());
         $accessToken = $request->access;
         if (!empty($accessToken)) {
             $response = Http::withHeaders([
