@@ -28,6 +28,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('otp:cron')->dailyAt('12:10');
         $schedule->command('otp:cron')->hourly();
         $schedule->command('trackplay:cron')->everyMinute();
+        $schedule->command('user:cron')->everyMinute();
     }
 
     /**

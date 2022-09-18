@@ -140,9 +140,11 @@ class PlayGameController extends Controller
     }
 
     public function getScore(){
-        $score = GameTrack::with(['user'])->where('user_id','=', 1)->get();
-        
-        return response()->json(['score'=>$score, 'id'=>1]);
+        $score = GameTrack::with(['user'])->where('user_id','=',Auth::id())->get();
+        $user = User::find(Auth::id());
+        $totalPoints = $user->total_points;
+        $tickets = $user->tickets;
+        return response()->json(['score'=>$score, 'total_points' => $totalPoints, 'tickets' => $tickets, 'id'=>Auth::id()]);
     }
 
     public function page6()
