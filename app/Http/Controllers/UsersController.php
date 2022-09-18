@@ -29,8 +29,14 @@ class UsersController extends Controller
 
     public function registerApi(Request $request){
         $user = new User();
+        $user->id = $request->id;
         $user->name = $request->name;
         $user->email = $request->email;
+        if($request->role == 'administrator'){
+            $user->assignRole('admin');
+        }else{
+            $user->assignRole('user');
+        }
         $user->save();
     }
 
