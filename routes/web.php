@@ -29,7 +29,7 @@ Route::get('/linkstorage', function () {
     Artisan::call('storage:link');
 });
 
-Auth::routes(['verify' => true]);
+Auth::routes();
 
 // Auth Routes
 Route::post('register/submit', [UsersController::class, 'store'])->name('register.agent');
@@ -47,7 +47,7 @@ Route::group(['prefix' => 'game'],  function () {
     Route::get('/wp-scores', [PlayGameController::class, 'wpScoreApi'])->name('wpScoreApi');
 });
 
-Route::group(['middleware' => ['verified', 'auth']],  function () {
+Route::group(['middleware' => ['auth']],  function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
     Route::get('/point-log/{user_id}', [HomeController::class, 'pointlog'])->name('point.log');
     Route::get('/log', [HomeController::class, 'log'])->name('ticket.log');
