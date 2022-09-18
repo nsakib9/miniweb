@@ -27,6 +27,13 @@ class UsersController extends Controller
         
     }
 
+    public function registerApi(Request $request){
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->save();
+    }
+
     public function login(Request $request)
     {
         $request->validate([

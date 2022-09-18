@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/score', [PlayGameController::class, 'getScore']);
+Route::post('/auth/register', [UsersController::class, 'registerApi']);
 Route::post('/auth/token', [UsersController::class, 'loginApi']);
 Route::get('/user', function () {
     return Auth::user();
