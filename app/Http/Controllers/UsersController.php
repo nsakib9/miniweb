@@ -42,18 +42,18 @@ class UsersController extends Controller
 
     public function login(Request $request)
     {
-        $request->validate([
-            'email' => 'required',
-            'password' => 'required',
-        ]);
+        // $request->validate([
+        //     'email' => 'required',
+        //     'password' => 'required',
+        // ]);
 
-        $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials)) {
-            return redirect('/dashboard')->withSuccess('You have Successfully logged in');
-        } else {
-            session()->flash('success', 'UserName or Password did not match');
-            return redirect('/login');
-        }
+        // $credentials = $request->only('email', 'password');
+        // if (Auth::attempt($credentials)) {
+        //     return redirect('/dashboard')->withSuccess('You have Successfully logged in');
+        // } else {
+        //     session()->flash('success', 'UserName or Password did not match');
+        //     return redirect('/login');
+        // }
     }
 
 
@@ -64,8 +64,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        return view('backend.users.index', with(['users' => $users]));
+        // $users = User::all();
+        // return view('backend.users.index', with(['users' => $users]));
     }
 
     /**
@@ -75,8 +75,8 @@ class UsersController extends Controller
      */
     public function create()
     {
-        $roles = Role::all();
-        return view('backend.users.create', with(['roles' => $roles]));
+        // $roles = Role::all();
+        // return view('backend.users.create', with(['roles' => $roles]));
     }
 
     /**
@@ -90,22 +90,22 @@ class UsersController extends Controller
         // dd($request);
         
         // Validation
-        $request->validate([
-            'name' => 'required|max:100',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6|confirmed'
-        ]);
+        // $request->validate([
+        //     'name' => 'required|max:100',
+        //     'email' => 'required|email|unique:users',
+        //     'password' => 'required|min:6|confirmed'
+        // ]);
 
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->save();
+        // $user = new User();
+        // $user->name = $request->name;
+        // $user->email = $request->email;
+        // $user->password = Hash::make($request->password);
+        // $user->save();
 
-        $user->assignRole('user');
+        // $user->assignRole('user');
 
-        session()->flash('success', 'User has been Created');
-        return redirect('/admin/users');
+        // session()->flash('success', 'User has been Created');
+        // return redirect('/admin/users');
     }
 
     /**
@@ -127,9 +127,9 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
-        $roles = Role::all();
-        return view('backend.users.edit', with(['user' => $user, 'roles' => $roles]));
+        // $user = User::find($id);
+        // $roles = Role::all();
+        // return view('backend.users.edit', with(['user' => $user, 'roles' => $roles]));
     }
 
     /**
@@ -141,29 +141,29 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
-        $role = Role::all();
-        // Validation
-        $request->validate([
-            'name' => 'required|max:100',
-            'email' => 'required|email|unique:users,email,' . $id,
-            'password' => 'nullable|min:6|confirmed'
-        ]);
+        // $user = User::find($id);
+        // $role = Role::all();
+        // // Validation
+        // $request->validate([
+        //     'name' => 'required|max:100',
+        //     'email' => 'required|email|unique:users,email,' . $id,
+        //     'password' => 'nullable|min:6|confirmed'
+        // ]);
 
-        $user->name = $request->name;
-        $user->email = $request->email;
-        if ($request->password) {
-            $user->password = Hash::make($request->password);
-        }
-        $user->save();
+        // $user->name = $request->name;
+        // $user->email = $request->email;
+        // if ($request->password) {
+        //     $user->password = Hash::make($request->password);
+        // }
+        // $user->save();
 
-        if ($request->role) {
-            $user->removeRole($request->old_role);
-            $user->assignRole($request->role);
-        }
+        // if ($request->role) {
+        //     $user->removeRole($request->old_role);
+        //     $user->assignRole($request->role);
+        // }
 
-        session()->flash('success', 'User has been Updated');
-        return redirect('/admin/users');
+        // session()->flash('success', 'User has been Updated');
+        // return redirect('/admin/users');
     }
 
     /**
@@ -174,13 +174,13 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::find($id);
+        // $user = User::find($id);
 
-        if (!is_null($user)) {
-            $user->delete();
-        }
+        // if (!is_null($user)) {
+        //     $user->delete();
+        // }
 
-        session()->flash('success', 'User has been Deleted');
-        return back();
+        // session()->flash('success', 'User has been Deleted');
+        // return back();
     }
 }

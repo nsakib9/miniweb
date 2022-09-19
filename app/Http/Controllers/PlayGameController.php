@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Mail;
 
 class PlayGameController extends Controller
 {
+    
     public function page1()
     {
         $setting = GameSetting::first();

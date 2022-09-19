@@ -32,14 +32,21 @@
                     Users
                 </a>
                 <div class="dropdown-divider"></div> --}}
-                <a class="dropdown-item" href="{{ route('logout') }}"
+                    <a class="dropdown-item" href="https://ap-lamp.com"
+                        class="nav-link">
+                        <i class="nav-icon fas fa-sign-out-alt"></i>
+                        <p>
+                            Back to Dashboard
+                        </p>
+                    </a>
+                {{-- <a class="dropdown-item" href="{{ route('logout') }}"
                     onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
                     {{ __('Logout') }}
                 </a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
-                </form>
+                </form> --}}
             </div>
         </li>
         <li class="nav-item">

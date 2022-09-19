@@ -31,7 +31,7 @@
                         class="nav-link {{ Request::is('dashboard') ? 'active' : null }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
-                            Dashboard
+                            Play Game
                         </p>
                     </a>
                 </li>
@@ -55,7 +55,7 @@
                     </li>
                 @endrole
                 @role('admin')
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="{{ route('roles.index') }}"
                             class="nav-link {{ request()->is('admin/roles*') ? 'active' : null }}">
                             <i class="nav-icon fas fa-tasks"></i>
@@ -72,7 +72,7 @@
                                 User Management
                             </p>
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item">
                         <a href="{{ route('pointLog') }}"
                             class="nav-link {{ request()->is('admin/point-log') ? 'active' : null }}">
@@ -117,6 +117,15 @@
                     </li>
                 @endrole
                 <li class="nav-item">
+                    <a href="https://ap-lamp.com"
+                        class="nav-link">
+                        <i class="nav-icon fas fa-sign-out-alt"></i>
+                        <p>
+                            Back to Dashboard
+                        </p>
+                    </a>
+                </li>
+                {{-- <li class="nav-item">
                     <a href="{{ route('logout') }}" class="nav-link"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="nav-icon fas fa-sign-out-alt"></i>
@@ -127,7 +136,7 @@
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
                     </form>
-                </li>
+                </li> --}}
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
