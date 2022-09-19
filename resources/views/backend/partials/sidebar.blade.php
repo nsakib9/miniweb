@@ -117,7 +117,7 @@
                     </li>
                 @endrole
                 <li class="nav-item">
-                    <a href="https://ap-lamp.com"
+                    <a href="https://ap-lamp.com/wp-admin"
                         class="nav-link">
                         <i class="nav-icon fas fa-sign-out-alt"></i>
                         <p>

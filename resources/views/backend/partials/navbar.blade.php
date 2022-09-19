@@ -32,7 +32,7 @@
                     Users
                 </a>
                 <div class="dropdown-divider"></div> --}}
-                    <a class="dropdown-item" href="https://ap-lamp.com"
+                    <a class="dropdown-item" href="https://ap-lamp.com/wp-admin"
                         class="nav-link">
                         <i class="nav-icon fas fa-sign-out-alt"></i>
                         <p>
