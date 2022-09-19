@@ -44,6 +44,7 @@ return [
         'api' => [
             'driver' => 'passport',
             'provider' => 'users',
+            
         ],
     ],
 
@@ -62,7 +63,7 @@ return [
     |
     | Supported: "database", "eloquent"
     |
-    */
+    */ 
 
     'providers' => [
         'users' => [
