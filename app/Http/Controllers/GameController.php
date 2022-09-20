@@ -7,12 +7,10 @@ use App\Models\GameOTP;
 use App\Models\GameSetting;
 use App\Models\GameTrack;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Collection;
+use Carbon\Carbon; // LS SH
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Validator;
 
 class GameController extends Controller
 {
@@ -22,7 +20,21 @@ class GameController extends Controller
     {
         $setting = GameSetting::first();
         $otp = GameOTP::simplePaginate(15);
+        $this->update_status(); // LS SH
+
         return view('backend.otp', ['otps' => $otp, 'setting' => $setting]);
+    }
+
+    // LS SH
+    public function update_status()
+    {
+        $otps = GameOTP::all();
+        foreach ($otps as $otp_code) {
+            $otpUpdate = GameOTP::find($otp_code->id);
+            $otpUpdate->status = Carbon::now()->between($otp_code->date, $otp_code->date_valid_to) ? 1 : 0;
+            $otpUpdate->save();
+        }
+
     }
 
     public function editOTP($id)
@@ -30,6 +42,8 @@ class GameController extends Controller
         $setting = GameSetting::first();
         $otp = GameOTP::find($id);
         $allotp = GameOTP::simplePaginate(15);
+        $this->update_status(); // LS SH
+
         return view('backend.otp', ['otp' => $otp, 'otps' => $allotp, 'setting' => $setting]);
     }
 
@@ -38,7 +52,7 @@ class GameController extends Controller
         $validation = $request->validate([
             'date' => 'required|unique:game_o_t_p_s,date',
             'date_valid_to' => 'required|unique:game_o_t_p_s,date_valid_to|after_or_equal:date',
-            'otp' => 'required|unique:game_o_t_p_s,otp'
+            'otp' => 'required|unique:game_o_t_p_s,otp',
         ], [
             'date.unique' => 'Effective Date has already been defined',
             'date_valid_to.unique' => 'Date of expiry has already been defined',
@@ -46,8 +60,11 @@ class GameController extends Controller
         ]);
 
         $otp = new GameOTP();
+
         $otp->fill($request->all());
         if ($otp->save()) {
+            $this->update_status(); // LS SH
+
             return redirect('/admin/game/otp');
         }
     }
@@ -198,13 +215,12 @@ class GameController extends Controller
         if ($previousPoint < $newPoint) {
             $email = [
                 'total_points' => $totalPoints->total_points,
-                'tickets' => $totalPoints->tickets
+                'tickets' => $totalPoints->tickets,
             ];
             Mail::to($totalPoints->email)->send(new notifyTicket($email));
         }
 
-
-        return redirect('/admin/user-log/mw-uid='.$score->user_id);
+        return redirect('/admin/user-log/mw-uid=' . $score->user_id);
     }
 
     public function usersLog()

@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\GameController; // LS SH
 use App\Mail\notifyTicket;
 use App\Models\GameOTP;
 use App\Models\GameSetting;
 use App\Models\GameTrack;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class PlayGameController extends Controller
@@ -18,11 +17,15 @@ class PlayGameController extends Controller
     public function page1()
     {
         $setting = GameSetting::first();
+        (new GameController)->update_status(); // LS SH
 
         $code = GameOTP::where('status', '=', '1')->get('otp');
         $track = GameTrack::where('user_id', '=', Auth::id())->get()->last();
+
         if (!empty($track)) {
-            if ($track->track == 1) {
+            $trackTime = Carbon::createFromFormat('Y-m-d H:s:i', $track->trackTime); // LS SH
+            // if ($track->track == 1) {
+            if (Carbon::now()->diffInHours($trackTime) < 24) { // LS SH
                 return view('frontend.game.first_page', ['message' => '過去24時間以内にプレイしたため、現在プレイできません。 後でお試しください', 'setting' => $setting, 'otp' => '']);
             } else {
                 if (!$code->isEmpty()) {
@@ -76,8 +79,10 @@ class PlayGameController extends Controller
 
         if (Auth::check()) {
             $lastPlayed = GameTrack::where('user_id', '=', Auth::id())->latest()->first();
+
             if (!empty($lastPlayed)) {
-                if ($lastPlayed->track == 0) {
+                // if ($lastPlayed->track == 0) {
+                if (empty($lastPlayed->trackTime)) { // LS SH
                     $otpCheck = GameTrack::where('user_id', '=', Auth::id())->latest()->first();
                     if ($otpCheck->otp_mached != 1) {
                         $otp = 'Error';
@@ -87,10 +92,10 @@ class PlayGameController extends Controller
                         $Third_Max = $Sec_Max + $setting->probablity_3;
                         $last_Max = $Third_Max + $setting->probablity_4;
                         $arr = array(
-                            $setting->point_1    =>  array('min' =>  0, 'max' =>  $setting->probablity_1),
-                            $setting->point_2  =>  array('min' => $setting->probablity_1 + 1, 'max' =>  $Sec_Max),
-                            $setting->point_3    =>  array('min' =>  $Sec_Max + 1, 'max' => $Third_Max),
-                            $setting->point_4  =>  array('min' => $Third_Max + 1, 'max' => $last_Max),
+                            $setting->point_1 => array('min' => 0, 'max' => $setting->probablity_1),
+                            $setting->point_2 => array('min' => $setting->probablity_1 + 1, 'max' => $Sec_Max),
+                            $setting->point_3 => array('min' => $Sec_Max + 1, 'max' => $Third_Max),
+                            $setting->point_4 => array('min' => $Third_Max + 1, 'max' => $last_Max),
                         );
                         $rnd = rand(1, 100);
                         foreach ($arr as $k => $v) {
@@ -116,7 +121,7 @@ class PlayGameController extends Controller
                         if ($previousPoint < $newPoint) {
                             $email = [
                                 'total_points' => $totalPoints->total_points,
-                                'tickets' => $totalPoints->tickets
+                                'tickets' => $totalPoints->tickets,
                             ];
                             Mail::to($totalPoints->email)->send(new notifyTicket($email));
                         }
@@ -135,14 +140,15 @@ class PlayGameController extends Controller
         }
     }
 
-    public function wpScoreApi(){
+    public function wpScoreApi()
+    {
         return view('backend.wp_scores');
     }
 
-    public function getScore(){
-        $score = GameTrack::with(['user'])->get();
-        // $tickets = $user->tickets;
-        return response()->json(['score'=>$score]);
+    public function getScore($id) { // LS SH 
+    $score = GameTrack::with(['user'])->where('user_id', $id)->get(); // LS SH
+    // $tickets = $user->tickets;
+    return response()->json(['score' => $score]);
     }
 
     public function page6()
